@@ -25,9 +25,18 @@ class connectRaspberry : AppCompatActivity() {
         setContentView(R.layout.activity_connect_raspberry)
         recievedIPAddress = intent.getStringExtra("ip_Address")
         displayIpAddress.text = recievedIPAddress
+
+        if(recievedIPAddress.contains("///")){
+            var delimiter = "///"
+            recievedIPAddress = recievedIPAddress.split(delimiter)[1]
+            recievedIPAddress = "https://" + recievedIPAddress + ":8888"
+            Log.i("SPLITTED STRING", recievedIPAddress)
+
+        }
     }
     fun getInputs() {
         text_view_result.text = watingMessage
+
         url = recievedIPAddress
         username = ip_username.text.toString()
         password = ip_password.text.toString()
