@@ -4,8 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Raspberry_Pages.MainRaspberry"
-    >
+    tools:context=".Raspberry_Pages.MainRaspberry">
+
+    <TextView
+        android:id="@+id/customAddressHeadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Custom IP Address"
+        android:textAppearance="?android:textAppearanceLarge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -35,13 +44,13 @@
         android:id="@+id/ip_address_input"
         android:layout_width="184dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="192.168.0.198"
         app:layout_constraintStart_toEndOf="@+id/text_view_result"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/customAddressHeadline" />
 
     <EditText
         android:id="@+id/ip_port"
@@ -61,23 +70,83 @@
         android:id="@+id/ConnectPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="420dp"
+        android:layout_marginTop="12dp"
         android:onClick="ConnectPage"
         android:text="ConnectPage"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ip_address_input" />
 
     <TextView
-        android:id="@+id/showIP"
+        android:id="@+id/savedIPHeadline"
         android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Saved IP Addresses"
+        android:textAppearance="?android:textAppearanceLarge"
+        app:layout_constraintBottom_toTopOf="@+id/scrollViewSaves"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollViewSaves"
+        android:layout_width="match_parent"
+        android:layout_height="164dp"
+        android:background="@color/light_grey"
+        app:layout_constraintBottom_toTopOf="@+id/searchGateway">
+
+
+        <LinearLayout
+            android:id="@+id/saveLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/searchGateway"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ShowIP"
-        android:textSize="20sp"
+
+        android:onClick="searchGatewaysButton"
+        android:text="Search for new gateways"
+        app:layout_constraintBottom_toTopOf="@+id/scrollViewSearch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollViewSearch"
+        android:layout_width="match_parent"
+        android:layout_height="164dp"
+        android:background="@color/light_grey"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ConnectPage" />
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <LinearLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
