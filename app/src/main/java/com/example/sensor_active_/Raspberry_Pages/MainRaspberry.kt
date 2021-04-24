@@ -6,13 +6,15 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sensor_active_.R
 import kotlinx.android.synthetic.main.activity_main_raspberry.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.io.IOException
 import java.net.InetAddress
+import java.net.InetSocketAddress
+import java.net.Socket
 import java.util.*
 
 
@@ -39,7 +41,7 @@ class MainRaspberry : AppCompatActivity() {
 
     }
 
-    fun changeActivityToConnection(_ip_address:String) {
+    fun changeActivityToConnection(_ip_address: String) {
 
         val intent = Intent(this, connectRaspberry::class.java)
         intent.putExtra("ip_Address", _ip_address)
@@ -63,21 +65,24 @@ class MainRaspberry : AppCompatActivity() {
     }
 
     fun searchGateways() {
-        var `in`: InetAddress
+        var inetAddress: InetAddress
+
         allRaspberrysName = emptyList<String>()
         allRaspberrysIP = emptyList<String>()
+        var currentHostname:String
         runOnUiThread {
             searchLayout.removeAllViews()
         }
         try {
             //go through all 255 Ports and check for answer with ping
             for (i in 0 until 255 step 1) {
-                `in` = InetAddress.getByName("192.168.0." + i.toString())
-                Log.i("getByName", `in`.hostName)
+                inetAddress = InetAddress.getByName("192.168.0." + i.toString())
+                currentHostname =inetAddress.hostName
+                Log.i("getByHostName", currentHostname )
                 //calls if "isLetters()" which sorts out all IP's without an hostname and adds them to the arrays
-                if (isLetters(`in`.hostName)) {
-                    allRaspberrysName += `in`.hostName
-                    allRaspberrysIP += `in`.hostAddress
+                if (isLetters(currentHostname) && isReachable(currentHostname,8888, 500 )) {
+                    allRaspberrysName += inetAddress.hostName
+                    allRaspberrysIP += inetAddress.hostAddress
 
 
                 }
@@ -121,7 +126,7 @@ class MainRaspberry : AppCompatActivity() {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         )
         dynamicButton.setOnClickListener(View.OnClickListener { view ->
-           Log.i("ButtonClick:", dynamicButton.text.toString())
+            Log.i("ButtonClick:", dynamicButton.text.toString())
             changeActivityToConnection(dynamicButton.text.toString())
         })
         newlinLay.addView(dynamicButton)
@@ -130,7 +135,16 @@ class MainRaspberry : AppCompatActivity() {
 
     }
 
-
+    fun isReachable(addr: String, openPort: Int, timeOutMillis: Int): Boolean {
+        // Any Open port on other machine
+        // openPort =  22 - ssh, 80 or 443 - webserver, 25 - mailserver etc.
+        return try {
+            Socket().use { soc -> soc.connect(InetSocketAddress(addr, openPort), timeOutMillis) }
+            true
+        } catch (ex: IOException) {
+            false
+        }
+    }
 
 
 }
