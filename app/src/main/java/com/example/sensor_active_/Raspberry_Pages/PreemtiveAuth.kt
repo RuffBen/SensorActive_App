@@ -9,12 +9,12 @@ import javax.net.ssl.X509TrustManager
 
 var client = OkHttpClient()
 
-class PreemtiveAuth(_url: String, _extension: String, _username: String, _password: String) {
+class PreemtiveAuth(_url: String, _extension: String, _username: String, _password: String, _POST:Boolean) {
     var url: String = _url
     var extension: String = _extension
     var username: String = _username
     var password: String = _password
-    var POST: Boolean = false
+    var POST: Boolean = _POST
     init {
         //Wenn man kein vertrauenswürdiges certifikat hat: https://stackoverflow.com/questions/25509296/trusting-all-certificates-with-okhttp
         // Create a trust manager that does not validate certificate chains
@@ -65,7 +65,9 @@ class PreemtiveAuth(_url: String, _extension: String, _username: String, _passwo
             val formBody: RequestBody = FormBody.Builder()
                 .add("changeintervall?sensor", "m5stack2")
                 .add("intervall", "22")
-                .build();
+                    .add("intervall", "1337")
+
+                    .build();
 
 
             Log.i("FormBuilder", formBody.toString())

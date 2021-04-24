@@ -19,20 +19,23 @@ class connectRaspberry : AppCompatActivity() {
     var POST_message = ""
     val watingMessage = "waiting for results..."
     var textViewContent:String = ""
-    var recievedIPAddress:String = ""
+    var recievedIPAddress:String = "non"
+    var recievedHostName:String = "non"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect_raspberry)
         recievedIPAddress = intent.getStringExtra("ip_Address")
-        displayIpAddress.text = recievedIPAddress
 
         if(recievedIPAddress.contains("///")){
             var delimiter = "///"
+            recievedHostName = recievedIPAddress.split(delimiter)[0]
             recievedIPAddress = recievedIPAddress.split(delimiter)[1]
             recievedIPAddress = "https://" + recievedIPAddress + ":8888"
             Log.i("SPLITTED STRING", recievedIPAddress)
 
         }
+        displayIpAddress.text = recievedHostName + "\n" + recievedIPAddress
+
     }
     fun getInputs() {
         text_view_result.text = watingMessage
@@ -48,19 +51,7 @@ class connectRaspberry : AppCompatActivity() {
         // Run on other Thread
         //start Process
         GlobalScope.launch {
-            textViewContent= PreemtiveAuth(url, extension, username, password).run()
-            runOnUiThread{
-                text_view_result.text = textViewContent
-            }
-        }
-
-    }
-    fun getEmpty(view: View) {
-        extension = ""
-        getInputs()
-
-        GlobalScope.launch {
-            textViewContent= PreemtiveAuth(url, extension, username, password).run()
+            textViewContent= PreemtiveAuth(url, extension, username, password, false).run()
             runOnUiThread{
                 text_view_result.text = textViewContent
             }
@@ -68,12 +59,24 @@ class connectRaspberry : AppCompatActivity() {
 
     }
     fun sendPost(view: View) {
+        Log.i("POSTMessage", "HELLO POST")
+        extension = "/changeintervall"
+        getInputs()
+        GlobalScope.launch {
+            textViewContent= PreemtiveAuth(url, extension, username, password, true).run()
+            runOnUiThread{
+                text_view_result.text = textViewContent
+            }
+        }
+
+    }
+    fun withLink(view: View) {
         extension = postMessage.text.toString()
         Log.i("POSTMessage", extension)
 
         getInputs()
         GlobalScope.launch {
-            textViewContent= PreemtiveAuth(url, extension, username, password).run()
+            textViewContent= PreemtiveAuth(url, extension, username, password, false).run()
             runOnUiThread{
                 text_view_result.text = textViewContent
             }
