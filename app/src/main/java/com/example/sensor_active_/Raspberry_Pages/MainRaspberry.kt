@@ -20,7 +20,7 @@ import java.util.*
 
 class MainRaspberry : AppCompatActivity() {
 
-    var ip_address: String = ""
+    var ip_HostName_and_Address: String = ""
 
     var allRaspberrysName: List<String> = ArrayList()
     var allRaspberrysIP: List<String> = ArrayList()
@@ -34,10 +34,14 @@ class MainRaspberry : AppCompatActivity() {
 
     //function which calls the Connected Page -> also adds https to the string and sends the ip over to next activity
     fun ConnectPage(view: View) {
-        ip_address = "https://" + ip_address_input.text.toString() + ":" + ip_port.text.toString()
-        Log.i("MainRaspberry sendip: ", ip_address)
+        GlobalScope.launch {
+            ip_HostName_and_Address = ip_address_input.text.toString()
+            val ip_HostName: String = InetAddress.getByName(ip_HostName_and_Address).hostName
+            ip_HostName_and_Address = ip_HostName + "///" + ip_HostName_and_Address
+            Log.i("MainRaspberry sendip: ", ip_HostName_and_Address)
 
-        changeActivityToConnection(ip_address)
+            changeActivityToConnection(ip_HostName_and_Address)
+        }
 
     }
 
@@ -56,7 +60,7 @@ class MainRaspberry : AppCompatActivity() {
         GlobalScope.launch {
 
             searchGateways()
-            runOnUiThread{
+            runOnUiThread {
                 searchGateway.text = "Search for new gateways"
                 searchGateway.isEnabled = true
             }
@@ -69,7 +73,7 @@ class MainRaspberry : AppCompatActivity() {
 
         allRaspberrysName = emptyList<String>()
         allRaspberrysIP = emptyList<String>()
-        var currentHostname:String
+        var currentHostname: String
         runOnUiThread {
             searchLayout.removeAllViews()
         }
@@ -77,10 +81,10 @@ class MainRaspberry : AppCompatActivity() {
             //go through all 255 Ports and check for answer with ping
             for (i in 0 until 255 step 1) {
                 inetAddress = InetAddress.getByName("192.168.0." + i.toString())
-                currentHostname =inetAddress.hostName
-                Log.i("getByHostName", currentHostname )
+                currentHostname = inetAddress.hostName
+                Log.i("getByHostName", currentHostname)
                 //calls if "isLetters()" which sorts out all IP's without an hostname and adds them to the arrays
-                if (isLetters(currentHostname) && isReachable(currentHostname,8888, 500 )) {
+                if (isLetters(currentHostname) && isReachable(currentHostname, 8888, 500)) {
                     allRaspberrysName += inetAddress.hostName
                     allRaspberrysIP += inetAddress.hostAddress
 
@@ -130,7 +134,7 @@ class MainRaspberry : AppCompatActivity() {
             changeActivityToConnection(dynamicButton.text.toString())
         })
         newlinLay.addView(dynamicButton)
-        dynamicButton.text = name +"///" +  ip
+        dynamicButton.text = name + "///" + ip
         // add Button to LinearLayout
 
     }

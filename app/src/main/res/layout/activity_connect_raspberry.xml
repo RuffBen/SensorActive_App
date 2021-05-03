@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:onClick="getStatus"
-        android:text="Get Status"
+        android:text="Status"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_result"
@@ -92,31 +92,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/withLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:text="GET with link"
-        android:onClick="withLink"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postMessage"
-        app:layout_constraintVertical_bias="1.0" />
 
-    <EditText
-        android:id="@+id/postMessage"
-        android:layout_width="397dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="64dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="/changeintervall?sensor=m5stack1&amp;intervall=121"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+
+
 
     <TextView
         android:id="@+id/displayIpAddress"
