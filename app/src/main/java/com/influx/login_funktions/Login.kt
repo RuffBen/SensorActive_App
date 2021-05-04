@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.RadioButton
 import com.influx.R
+import com.influx.dataClasses.User
 import com.influxdb.client.kotlin.InfluxDBClientKotlinFactory
 
 class Login : AppCompatActivity() {
@@ -28,6 +30,7 @@ class Login : AppCompatActivity() {
         var outStringList = ArrayList<String>()
         var portID = "8086"
         var portIDAlternativ = findViewById(R.id.text_portAlternativ) as EditText
+        var saveLogin = findViewById(R.id.checkBoxSaveLogin) as CheckBox
 
         if (!standardPORT){
             portID = portIDAlternativ.text.toString()
@@ -60,6 +63,11 @@ class Login : AppCompatActivity() {
 
         println(websiteLinkUse+":"+portID+loginNameLinkUse+loginPasswordUse)
 
+        if(saveLogin.isChecked){
+
+            val user = User(loginNameLinkUse, loginPasswordUse)
+            user.Save()
+        }
 
         val influxDBClient = InfluxDBClientKotlinFactory.create(websiteLink.toString()+":"+portID,loginName.toString(),loginPassword.toString().toCharArray())
 

@@ -116,7 +116,7 @@
         android:layout_height="47dp"
         android:text="Login" />
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/checkBoxSaveLogin"
         android:layout_width="165dp"
         android:layout_height="46dp"
         android:layout_gravity="right"

@@ -15,7 +15,7 @@ class GettingGraph : AppCompatActivity() {
     var listOfInfluxBuckets = ArrayList<InfluxBucket>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_graph)
 
         // get reference to button
         val btn_BarChart = findViewById(R.id.buttonBarChart) as Button
