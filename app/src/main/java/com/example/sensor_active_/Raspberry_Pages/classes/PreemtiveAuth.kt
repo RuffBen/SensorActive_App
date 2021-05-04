@@ -108,7 +108,7 @@ class PreemtiveAuth(_url: String, _extension: String, _username: String, _passwo
     fun changeintervall(_request: Request): Request {
         var request = _request
 
-        val formBody: RequestBody = FormBody.Builder()
+        var formBody: RequestBody = FormBody.Builder()
                 .add("sensor", "m5stack2")
                 .add("intervall", "22")
                 .add("intervall", "1337")

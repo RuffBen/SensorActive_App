@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.example.sensor_active_.R
 import com.example.sensor_active_.Raspberry_Pages.classes.PreemtiveAuth
 import kotlinx.android.synthetic.main.activity_connect_raspberry.*
@@ -22,25 +23,28 @@ class connectRaspberry : AppCompatActivity() {
     var textViewContent:String = ""
     var recievedIPAddress = "non"
     var recievedHostName:String = "non"
+    var recievedIPAddressHTTPS = ""
+    val SHARED_PREFS = "IP_Addresses"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect_raspberry)
         recievedIPAddress = intent.getStringExtra("ip_Address")
          val delimiter = "///"
-            recievedHostName = recievedIPAddress.split(delimiter)[0]
-            recievedIPAddress = recievedIPAddress.split(delimiter)[1]
-            recievedIPAddress = "https://" + recievedIPAddress + PORT
-            Log.i("SPLITTED STRING", recievedIPAddress)
+            recievedHostName = recievedIPAddress.split(delimiter)[1]
+            recievedIPAddress = recievedIPAddress.split(delimiter)[0]
+            recievedIPAddressHTTPS = "https://" + recievedIPAddress + PORT
+            Log.i("SPLITTED STRING", recievedIPAddressHTTPS)
 
 
-        displayIpAddress.text = recievedHostName + "\n" + recievedIPAddress
+        displayIpAddress.text = recievedHostName + "\n" + recievedIPAddressHTTPS
 
     }
 
 
     fun getInputs() {
         text_view_result.text = watingMessage
-        url = recievedIPAddress
+        url = recievedIPAddressHTTPS
         username = ip_username.text.toString()
         password = ip_password.text.toString()
     }
@@ -71,6 +75,19 @@ class connectRaspberry : AppCompatActivity() {
                 text_view_result.text = textViewContent
             }
         }
+
+    }
+
+    fun removeIP(view: View) {
+        val sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        Log.i("shardALL1: ", sharedPreferences.all.toString())
+
+            editor.remove(recievedIPAddress).commit()
+            Toast.makeText(this, "IP removed", Toast.LENGTH_SHORT).show()
+            Log.i("shardALL2: ", sharedPreferences.all.toString())
+
+
 
     }
 

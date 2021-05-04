@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sensor_active_">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-    <!--  for IP seatch in local network  -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- for IP seatch in local network -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -15,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Sensor_Active_">
-
+        <activity android:name=".Overview"></activity>
         <!-- DEFINE STARTING ACTIVITY HERE -->
         <activity
             android:name=".MainActivity"
@@ -25,18 +23,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Other Activity -->
+        </activity> <!-- Other Activity -->
         <activity
             android:name=".DatabasePages.MainDatabase"
             android:label="@string/MainDatabase" />
         <activity
-            android:name=".Raspberry_Pages.MainRaspberry"
+            android:name=".Raspberry_Pages.AddGateway"
             android:label="MainRaspberry" />
-        <activity android:name=".Raspberry_Pages.connectRaspberry"
-            android:label="connectRaspberry"/>
-
+        <activity
+            android:name=".Raspberry_Pages.connectRaspberry"
+            android:label="connectRaspberry" />
     </application>
 
 </manifest>
