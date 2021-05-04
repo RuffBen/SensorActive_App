@@ -1,43 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="10dp"
     tools:context=".MainActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Bucket"
+        android:visibility="visible">
+    </TextView>
+    <Spinner
+    android:id="@+id/buckets_spinner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Data-measurement"
+        android:visibility="visible">
+    </TextView>
+    <EditText
+        android:id="@+id/measurement"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="_measurement"
+        android:inputType="text"
+        android:visibility="visible">
+    </EditText>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="@string/zeitspanne"
+        android:visibility="visible">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="Von"
+            android:visibility="visible">
+        </TextView>
+    <EditText
+        android:id="@+id/startTime"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:text="5"
+        android:layout_gravity="right"
+        android:inputType="number"
+        android:visibility="visible">
+    </EditText>
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="Bis"
+            >
+        </TextView>
+    <EditText
+        android:id="@+id/endTime"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:text="0"
+        android:inputType="number"
+        android:layout_gravity="right"
+        android:visibility="visible">
+    </EditText>
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/rationButtons"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <RadioButton
+                android:id="@+id/daysRadio"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:textSize="15dp"
+                android:text="Tage"
+                >
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/hoursRadio"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:textSize="15dp"
+                android:text="Stunden"
+                android:onClick="onRadioButtonClicked"/>
+
+        </RadioGroup>
+
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/buttonBarChart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bar_chart">
+    </Button>
 
     <Button
-        android:id="@+id/buttonDatabase"
-        android:layout_width="100dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="20dp"
-        android:text="Database"
-        android:onClick="pageDatabase"
-        app:layout_constraintEnd_toStartOf="@+id/buttonRaspi"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/buttonPieChart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pie_chart">
+    </Button>
 
     <Button
-        android:id="@+id/buttonRaspi"
-        android:layout_width="100dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="20dp"
-        android:text="Raspi"
-        android:onClick="pageRaspi"
-        app:layout_constraintEnd_toEndOf="@id/sheduledings"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/buttonDatabase"
-        app:layout_constraintTop_toTopOf="parent" />
-    <Button
-        android:id="@+id/sheduledings"
-        android:layout_width="100dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="20dp"
-        android:text="sheduledings"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/buttonRaspi"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/buttonRadarChart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/radar_chart">
+    </Button>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

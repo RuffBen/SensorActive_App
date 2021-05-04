@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="24dp"
+    android:paddingRight="32dp"
+    android:paddingTop="100dp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="313dp"
+        android:layout_height="31dp"
+        android:text="Webseite"
+        />
+    <EditText
+        android:id="@+id/text_WebsiteLogin"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        />
+    <TextView
+        android:id="@+id/text_port"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Port"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/rationButtonsPort"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+
+        <RadioButton
+            android:id="@+id/RadioB_StandartPort"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/_8086"
+            android:onClick="onRadioButtonClicked"/>
+
+        <RadioButton
+            android:id="@+id/RadioB_differentPort"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/andere"
+            android:onClick="onRadioButtonClicked"/>
+       </RadioGroup>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/text_portAlternativ"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+
+        android:inputType="number"
+        android:text="Alternativer Port" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+
+        android:background="?android:attr/listDivider" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:text="@string/name"
+        />
+
+    <EditText
+        android:id="@+id/editTextPersonName"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/name" />
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:text="@string/passwort"
+        />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/passwort"
+        android:autofillHints="" />
+
+    <Button
+        android:id="@+id/bt_Login"
+        android:layout_gravity="right"
+        android:layout_width="174dp"
+        android:layout_height="47dp"
+        android:text="Login" />
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="165dp"
+        android:layout_height="46dp"
+        android:layout_gravity="right"
+        android:text="Anmeldedaten Speichern"
+        />
+
+</LinearLayout>

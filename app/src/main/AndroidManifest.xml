@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sensor_active_">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.influx">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-    <!--  for IP seatch in local network  -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,29 +11,19 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Sensor_Active_">
+        android:theme="@style/Theme.InfluxDB">
 
-        <!-- DEFINE STARTING ACTIVITY HERE -->
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
+        <activity android:name=".RadarChartActivity" />
+        <activity android:name=".PieChartActivity" />
+        <activity android:name=".BarChartActivity" />
+        <activity android:name=".login_funktions.Login"
+            tools:ignore="DuplicateActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- Other Activity -->
-        <activity
-            android:name=".DatabasePages.MainDatabase"
-            android:label="@string/MainDatabase" />
-        <activity
-            android:name=".Raspberry_Pages.MainRaspberry"
-            android:label="MainRaspberry" />
-        <activity android:name=".Raspberry_Pages.connectRaspberry"
-            android:label="connectRaspberry"/>
-
     </application>
 
 </manifest>
