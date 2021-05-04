@@ -1,16 +1,17 @@
-package com.influx
+package com.influx.Graph
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.influx.R
 import com.influx.dataClasses.InfluxBucket
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class MainActivity : AppCompatActivity() {
+class GettingGraph : AppCompatActivity() {
     var listOfInfluxBuckets = ArrayList<InfluxBucket>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

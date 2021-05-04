@@ -13,9 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InfluxDB">
 
-        <activity android:name=".RadarChartActivity" />
-        <activity android:name=".PieChartActivity" />
-        <activity android:name=".BarChartActivity" />
+        <activity android:name=".Graph.RadarChartActivity" />
+        <activity android:name=".Graph.PieChartActivity" />
+        <activity android:name=".Graph.BarChartActivity" />
         <activity android:name=".login_funktions.Login"
             tools:ignore="DuplicateActivity">
             <intent-filter>

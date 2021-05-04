@@ -1,4 +1,4 @@
-package com.influx
+package com.influx.Graph
 
 import com.influx.dataClasses.InfluxBucket
 import com.influxdb.client.kotlin.InfluxDBClientKotlinFactory

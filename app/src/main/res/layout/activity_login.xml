@@ -19,7 +19,7 @@
         android:layout_height="41dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="sensoractive.ddnss.de"
         />
     <TextView
         android:id="@+id/text_port"
@@ -42,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:text="@string/_8086"
+            android:checked="true"
             android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
@@ -57,9 +58,9 @@
         android:id="@+id/text_portAlternativ"
         android:layout_width="match_parent"
         android:layout_height="41dp"
-
+        android:visibility="gone"
         android:inputType="number"
-        android:text="Alternativer Port" />
+        android:text="8086" />
 
     <Space
         android:layout_width="match_parent"

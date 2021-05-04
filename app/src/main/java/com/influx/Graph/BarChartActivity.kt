@@ -1,4 +1,4 @@
-package com.influx
+package com.influx.Graph
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.influx.R
 
 class BarChartActivity : AppCompatActivity() {
 

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="10dp"
-    tools:context=".MainActivity">
+    tools:context=".Graph.GettingGraph">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
