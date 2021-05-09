@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     fun pageDatabase(view: View) {
-        Log.d("World", "Hello World")
+        Log.d("World", "Hello Database")
 
          val intent = Intent(this, MainDatabase::class.java)
         startActivity(intent)

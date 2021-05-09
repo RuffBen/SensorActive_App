@@ -13,17 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Sensor_Active_">
-        <activity android:name=".Overview"></activity>
-        <!-- DEFINE STARTING ACTIVITY HERE -->
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
+        <activity android:name=".Raspberry_Pages.ESP32Sensor"></activity>
+        <activity android:name=".Overview">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Other Activity -->
+        </activity> <!-- DEFINE STARTING ACTIVITY HERE -->
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"></activity> <!-- Other Activity -->
         <activity
             android:name=".DatabasePages.MainDatabase"
             android:label="@string/MainDatabase" />
