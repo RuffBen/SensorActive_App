@@ -51,7 +51,7 @@ class connectRaspberry : AppCompatActivity() {
 
 
     fun getInputs() {
-        text_view_result.text = watingMessage
+     //   text_view_result.text = "watingMessage"
         url = recievedIPAddressHTTPS
         username = ip_username.text.toString()
         password = ip_password.text.toString()
@@ -72,7 +72,7 @@ class connectRaspberry : AppCompatActivity() {
 
 
             runOnUiThread{
-               // searchLayout.removeAllViews()
+                searchLayout.removeAllViews()
 
                 //    text_view_result.text = textViewSensors
                 callForButtons()
