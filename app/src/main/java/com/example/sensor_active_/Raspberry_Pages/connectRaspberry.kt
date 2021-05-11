@@ -72,7 +72,7 @@ class connectRaspberry : AppCompatActivity() {
 
 
             runOnUiThread{
-                searchLayout.removeAllViews()
+               // searchLayout.removeAllViews()
 
                 //    text_view_result.text = textViewSensors
                 callForButtons()
