@@ -1,15 +1,18 @@
 package com.example.sensor_active_.Raspberry_Pages.classes
 
 import android.util.Log
+import com.google.gson.Gson
 import okhttp3.*
+import org.json.JSONObject
 import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
+
 var client = OkHttpClient()
 
-class PreemtiveAuth(_url: String, _extension: String, _username: String, _password: String) {
+open class PreemtiveAuth(_url: String, _extension: String, _username: String, _password: String) {
     var url: String = _url
     var extension: String = _extension
     var username: String = _username
@@ -38,7 +41,8 @@ class PreemtiveAuth(_url: String, _extension: String, _username: String, _passwo
         //Build Client
         client = OkHttpClient.Builder()
                 .addInterceptor(
-                        BasicAuthInterceptor(url, extension, username, password))
+                    BasicAuthInterceptor(url, extension, username, password)
+                )
                 .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
                 .hostnameVerifier { _, _ -> true }
                 .build()
@@ -63,23 +67,15 @@ class PreemtiveAuth(_url: String, _extension: String, _username: String, _passwo
 
         when (extension) {
             "/status" -> request = status(request)
-            "/change" -> request = changeintervall(request)
+            "/change_sensor" -> request = change_sensor(request)
             "/sensoractive_gateway" -> request = status(request)
+            "/change_ud" -> request = change_ud(request)
 
             else -> textResponse = "Unknown extension, please contact an admin on gitHub"
-
         }
-
-
-
-
-
         Log.i("PreemtiveAuth-Method", request.toString())
-
-
         try {
             //Hier wird der finale Aufruf abgeschickt
-
             var response: Response = client.newCall(request).execute()
             textResponse = response.body!!.string()
 
@@ -89,13 +85,14 @@ class PreemtiveAuth(_url: String, _extension: String, _username: String, _passwo
 
             println(e.toString())
         }
-        Log.i("TextResponse ", "Text: "+  textResponse)
+        Log.i("TextResponse ", "Text: " + textResponse)
         return textResponse
 
     }
 
 
     fun status(_request: Request): Request {
+        Log.i("StatusPOST", "in Status")
         var request = _request
         request = request.newBuilder()
                 .post(FormBody.Builder().build())
@@ -105,13 +102,13 @@ class PreemtiveAuth(_url: String, _extension: String, _username: String, _passwo
 
     }
 
-    fun changeintervall(_request: Request): Request {
+    open fun change_sensor(_request: Request): Request {
         var request = _request
 
-        val formBody: RequestBody = FormBody.Builder()
-                .add("sensor", "m5stack2")
-                .add("intervall", "22")
-                .add("intervall", "1337")
+        var formBody: RequestBody = FormBody.Builder()
+                .add("sensor_id", "sensoreins")
+                .add("sensor_new_name", "neuernam11e")
+                .add("sync_interval", "1337")
                 .build();
         request = request.newBuilder()
                 .post(formBody)
@@ -119,5 +116,8 @@ class PreemtiveAuth(_url: String, _extension: String, _username: String, _passwo
 
         return request
 
+    }
+    open fun change_ud(_request: Request) : Request{
+        return _request
     }
 }

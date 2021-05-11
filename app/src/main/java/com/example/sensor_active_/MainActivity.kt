@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.example.sensor_active_.DatabasePages.MainDatabase
-import com.example.sensor_active_.DatabasePages.connectDatabase
-import com.example.sensor_active_.Raspberry_Pages.MainRaspberry
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,14 +18,14 @@ class MainActivity : AppCompatActivity() {
 
     fun pageRaspi(view: View) {
         Log.d("World", "Hello World")
-        val intent = Intent(this, MainRaspberry::class.java)
+        val intent = Intent(this, Overview::class.java)
         startActivity(intent)
 
         //setContentView(R.layout.activity_main_raspberry)
 
     }
     fun pageDatabase(view: View) {
-        Log.d("World", "Hello World")
+        Log.d("World", "Hello Database")
 
          val intent = Intent(this, MainDatabase::class.java)
         startActivity(intent)

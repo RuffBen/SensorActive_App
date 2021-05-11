@@ -6,15 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".Raspberry_Pages.connectRaspberry">
 
-    <TextView
-        android:id="@+id/text_view_result"
+
+    <Button
+        android:id="@+id/sendPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send a request"
+        android:onClick="sendPost"
+        android:text="Send Post"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewSearch"
+        app:layout_constraintVertical_bias="0.15" />
 
     <Button
         android:id="@+id/getStatus"
@@ -25,20 +27,8 @@
         android:text="Status"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_result"
-        app:layout_constraintVertical_bias="0.558" />
-
-    <Button
-        android:id="@+id/sendPost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="sendPost"
-        android:text="Send Post"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_result"
-        app:layout_constraintVertical_bias="0.558" />
-
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewSearch"
+        app:layout_constraintVertical_bias="0.15" />
 
     <EditText
         android:id="@+id/ip_password"
@@ -68,14 +58,14 @@
 
     <EditText
         android:id="@+id/ip_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="184dp"
+        android:layout_height="46dp"
         android:layout_marginTop="136dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="demo"
         app:layout_constraintEnd_toStartOf="@+id/ip_password"
-        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,9 +83,6 @@
         app:layout_constraintVertical_bias="1.0" />
 
 
-
-
-
     <TextView
         android:id="@+id/displayIpAddress"
         android:layout_width="wrap_content"
@@ -108,5 +95,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/removeIP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:backgroundTint="@color/darkred"
+        android:onClick="removeIP"
+        android:text="remove IP"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.013"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getStatus" />
+
+    <ScrollView
+        android:id="@+id/scrollViewSearch"
+        android:layout_width="409dp"
+        android:layout_height="256dp"
+        android:layout_marginTop="4dp"
+
+        android:background="@color/light_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button">
+
+
+        <LinearLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:onClick="changeToSearchSensors"
+        android:text="@string/search_for_sensors"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ip_username" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
