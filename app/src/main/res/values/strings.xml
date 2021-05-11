@@ -9,4 +9,10 @@
     <string name="hello_world">Hello Square World!</string>
     <string name="title_activity_main_database">MainDatabase</string>
     <string name="title_activity_connect_raspberry">connectRaspberry</string>
+    <string name="sensor_id">Sensor ID</string>
+    <string name="sensor_name">Sensor Name</string>
+    <string name="bluetooth_address">Bluetooth Address</string>
+    <string name="sync_interval">Sync interval</string>
+    <string name="status">Status</string>
+    <string name="search_for_sensors">Search for Sensors</string>
 </resources>

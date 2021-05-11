@@ -29,10 +29,6 @@ class AddGateway : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_gateway)
-
-
-
-
     }
 
     //function which calls the Connected Page -> also adds https to the string and sends the ip over to next activity
@@ -82,13 +78,13 @@ class AddGateway : AppCompatActivity() {
         try {
             //go through all 255 Ports and check for answer with ping
             for (i in 0 until 255 step 1) {
-                progressBar.progress = i*10/26
+                progressBar.progress = i * 10 / 26
                 inetAddress = InetAddress.getByName("192.168.0." + i.toString())
                 currentHostname = inetAddress.hostName
                 Log.i("getByHostName", currentHostname)
                 //calls if "isLetters()" which sorts out all IP's without an hostname and adds them to the arrays
-               // if (isLetters(currentHostname) && checkAvailable().isReachable(currentHostname, 8888, 500)){
-                    if (isLetters(currentHostname)){
+                // if (isLetters(currentHostname) && checkAvailable().isReachable(currentHostname, 8888, 500)){
+                if (isLetters(currentHostname)) {
                     allRaspberrysName += inetAddress.hostName
                     allRaspberrysIP += inetAddress.hostAddress
 
@@ -149,8 +145,9 @@ class AddGateway : AppCompatActivity() {
         // add Button to LinearLayout
 
     }
+
     //saves the IP addresses in Shared Preferences
-    fun saveClickedIP(saveText: String){
+    fun saveClickedIP(saveText: String) {
         val sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
         val delimiter = "///"
         var hostName = saveText.split(delimiter)[0]
@@ -159,10 +156,10 @@ class AddGateway : AppCompatActivity() {
         Log.i("shardALL: ", sharedPreferences.all.toString())
 
 
-            editor.putString(ipAddress, hostName)
-            editor.apply()
-            Toast.makeText(this, "IP saved", Toast.LENGTH_SHORT).show()
-            Log.i("shardALL2: ", sharedPreferences.all.toString())
+        editor.putString(ipAddress, hostName)
+        editor.apply()
+        Toast.makeText(this, "IP saved", Toast.LENGTH_SHORT).show()
+        Log.i("shardALL2: ", sharedPreferences.all.toString())
 
     }
 }

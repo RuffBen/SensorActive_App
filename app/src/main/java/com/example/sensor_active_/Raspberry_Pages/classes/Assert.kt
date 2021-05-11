@@ -46,11 +46,16 @@ data class MainOrSensors(
 ) {}
 
 data class Assert(
-    val success: Boolean? = null,
-    val data: MainOrSensors? = null
+    val sensor_name: String? = null,
+    val sensor_type: String? = null,
+    val sensor_bluetooth_adress: String? = null,
+    val helpCharacteristic_UUID: String? = null,
+    val dataCharacteristic_UUID: String? = null,
+    val sync_interval: String? = null,
+    val status: String? = null
 
 ) {}
-
+/*
 class AssertDeserializer : JsonDeserializer<Raspberry> {
 
     override fun deserialize(
@@ -74,3 +79,4 @@ class AssertDeserializer : JsonDeserializer<Raspberry> {
         )
     }
 }
+*/

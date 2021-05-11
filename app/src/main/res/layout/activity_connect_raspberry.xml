@@ -6,28 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Raspberry_Pages.connectRaspberry">
 
-    <TextView
-        android:id="@+id/text_view_result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="Send a request"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollViewSearch" />
-
-    <Button
-        android:id="@+id/getStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:onClick="getStatus"
-        android:text="Status"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_result"
-        app:layout_constraintVertical_bias="0.333" />
-
 
     <Button
         android:id="@+id/sendPost"
@@ -37,8 +15,20 @@
         android:text="Send Post"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_result"
-        app:layout_constraintVertical_bias="0.34" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewSearch"
+        app:layout_constraintVertical_bias="0.15" />
+
+    <Button
+        android:id="@+id/getStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:onClick="getStatus"
+        android:text="Status"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewSearch"
+        app:layout_constraintVertical_bias="0.15" />
 
     <EditText
         android:id="@+id/ip_password"
@@ -123,12 +113,13 @@
         android:id="@+id/scrollViewSearch"
         android:layout_width="409dp"
         android:layout_height="256dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="4dp"
 
         android:background="@color/light_grey"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ip_username">
+        app:layout_constraintTop_toBottomOf="@+id/button">
 
 
         <LinearLayout
@@ -142,5 +133,16 @@
 
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:onClick="changeToSearchSensors"
+        android:text="@string/search_for_sensors"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ip_username" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

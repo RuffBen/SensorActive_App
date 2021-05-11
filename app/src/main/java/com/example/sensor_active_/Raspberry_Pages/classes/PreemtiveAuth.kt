@@ -12,7 +12,7 @@ import javax.net.ssl.X509TrustManager
 
 var client = OkHttpClient()
 
-class PreemtiveAuth(_url: String, _extension: String, _username: String, _password: String) {
+open class PreemtiveAuth(_url: String, _extension: String, _username: String, _password: String) {
     var url: String = _url
     var extension: String = _extension
     var username: String = _username
@@ -67,8 +67,9 @@ class PreemtiveAuth(_url: String, _extension: String, _username: String, _passwo
 
         when (extension) {
             "/status" -> request = status(request)
-            "/change" -> request = changeintervall(request)
+            "/change_sensor" -> request = change_sensor(request)
             "/sensoractive_gateway" -> request = status(request)
+            "/change_ud" -> request = change_ud(request)
 
             else -> textResponse = "Unknown extension, please contact an admin on gitHub"
         }
@@ -77,43 +78,6 @@ class PreemtiveAuth(_url: String, _extension: String, _username: String, _passwo
             //Hier wird der finale Aufruf abgeschickt
             var response: Response = client.newCall(request).execute()
             textResponse = response.body!!.string()
-            var iDS = JSONObject(JSONObject(textResponse).get("data").toString()).get("sensors").toString()
-            val jsonObject = JSONObject(iDS)
-            val keys: Iterator<String> = jsonObject.keys()
-       /*     //loop to get all sensor names
-            while (keys.hasNext()) {
-                val key = keys.next()
-                if (jsonObject.get(key) is JSONObject) {
-                    Log.i("iterator", key.toString())
-                  //  var addSensor = SensorsIDs(AssertSensor("a", "b", "c", "d", "f", "g", "b"))
-                    // ADD keys to dataclass SensorsIDs
-                    // add Button
-                }
-            } */
-
-            //var textViewSensors =  textResponse.split(delimiter)[1]
-
-           // textViewSensors = "{ " + delimiter + textViewSensors.dropLast(1) + " \"\"\""
-           // Log.i("DELIMCHECK: ", textViewSensors)
-            val gSon = Gson().fromJson<Assert>(textResponse, Assert::class.java)
-            // val entity = gson.fromJson(textResponse, AssertFeed::class.java)
-           // itemList = gSon.fromJson<List<String>>(itemListJsonString, itemType)
-
-           // Log.i("name1", gSon.data?.main_info?.device_name)
-            //Log.i("name1", gSon.data?.sensors?.)
-
-
-          //  Log.i("name2", gSon[1].toString())
-            /** Output student will be like below **/
-           // Log.i("name1", parsedJSON.sensors[0].sensor_Name)
-            //Log.i("GSON", "filler: " + entity.sensors[1])
-           // Log.i("AssertFeed()", AssertFeed(entity.sensors).toString())
-           // Assert.assertEquals(entity.description, "Test")
-
-
-           // val json = JSON().gson(response)
-          //  Log.i("Gson", json)
-
 
         } catch (e: Exception) {
 
@@ -138,13 +102,13 @@ class PreemtiveAuth(_url: String, _extension: String, _username: String, _passwo
 
     }
 
-    fun changeintervall(_request: Request): Request {
+    open fun change_sensor(_request: Request): Request {
         var request = _request
 
         var formBody: RequestBody = FormBody.Builder()
-                .add("sensor", "m5stack2")
-                .add("intervall", "22")
-                .add("intervall", "1337")
+                .add("sensor_id", "sensoreins")
+                .add("sensor_new_name", "neuernam11e")
+                .add("sync_interval", "1337")
                 .build();
         request = request.newBuilder()
                 .post(formBody)
@@ -152,5 +116,8 @@ class PreemtiveAuth(_url: String, _extension: String, _username: String, _passwo
 
         return request
 
+    }
+    open fun change_ud(_request: Request) : Request{
+        return _request
     }
 }

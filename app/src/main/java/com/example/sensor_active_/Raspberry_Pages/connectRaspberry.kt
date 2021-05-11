@@ -15,7 +15,6 @@ import com.example.sensor_active_.Raspberry_Pages.classes.checkAvailable
 import kotlinx.android.synthetic.main.activity_add_gateway.*
 import kotlinx.android.synthetic.main.activity_connect_raspberry.*
 import kotlinx.android.synthetic.main.activity_connect_raspberry.searchLayout
-import kotlinx.android.synthetic.main.activity_connect_raspberry.text_view_result
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -35,7 +34,6 @@ class connectRaspberry : AppCompatActivity() {
     var recievedHostName:String = "non"
     var recievedIPAddressHTTPS = ""
     val SHARED_PREFS = "IP_Addresses"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect_raspberry)
@@ -74,7 +72,9 @@ class connectRaspberry : AppCompatActivity() {
 
 
             runOnUiThread{
-            //    text_view_result.text = textViewSensors
+                searchLayout.removeAllViews()
+
+                //    text_view_result.text = textViewSensors
                 callForButtons()
             }
         }
@@ -127,7 +127,7 @@ class connectRaspberry : AppCompatActivity() {
     }
 
     fun addButtons(_sensorName: String?) {
-        val sensorName = _sensorName
+        var sensorID = _sensorName
         //define the Parent of the Buttons
         var linLay: LinearLayout = searchLayout
 
@@ -147,14 +147,21 @@ class connectRaspberry : AppCompatActivity() {
         })
 
         newlinLay.addView(dynamicButton)
-        dynamicButton.text = sensorName
+        dynamicButton.text = sensorID
         // add Button to LinearLayout
 
     }
     fun changeActivityToSensor(_sensorName: String) {
 
         val intent = Intent(this, ESP32Sensor::class.java)
-        intent.putExtra("ip_Address", _sensorName)
+        intent.putExtra("Content", textViewContent)
+        intent.putExtra("sensorID", _sensorName)
+        intent.putExtra("IP", url)
         startActivity(intent)
+    }
+
+    fun changeToSearchSensors(view: View) {
+
+
     }
 }
