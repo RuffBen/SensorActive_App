@@ -42,7 +42,7 @@ open class PreemtiveAuth(_url: String, _extension: String, _username: String, _p
         // Missing Login
         client = OkHttpClient.Builder()
                 .addInterceptor(
-                    BasicAuthInterceptor(url, extention ,username, password)
+                    BasicAuthInterceptor(url, extension ,username, password)
                 )
                 .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
                 .hostnameVerifier { _, _ -> true }

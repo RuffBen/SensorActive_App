@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import com.example.sensor_active_.Raspberry_Pages.AddGateway
 import com.example.sensor_active_.Raspberry_Pages.classes.checkAvailable
 import com.example.sensor_active_.Raspberry_Pages.connectRaspberry
+import com.influx.login_functions.Login
 import kotlinx.android.synthetic.main.activity_add_gateway.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -102,7 +103,7 @@ class Overview : AppCompatActivity() {
 
     fun pageDatabase(view: View) {
 
-        //val intent = Intent(this, MainDatabase::class.java)
-        //startActivity(intent)
+        val intent = Intent(this, Login::class.java)
+        startActivity(intent)
     }
 }
