@@ -3,12 +3,13 @@ package com.influx.Graph
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.sensor_active_.R
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.utils.ColorTemplate
-import com.influx.R
+
 
 class BarChartActivity : AppCompatActivity() {
 

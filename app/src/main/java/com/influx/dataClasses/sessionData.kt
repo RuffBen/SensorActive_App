@@ -34,7 +34,7 @@ class sessionData() {
 
     public fun  getOrgs(){
 
-        communicator.getOrgs()
+        //communicator.getOrgs()
 
     }
 

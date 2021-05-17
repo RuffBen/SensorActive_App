@@ -2,7 +2,7 @@ package com.influx.Graph
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.influx.R
+import com.example.sensor_active_.R
 
 class RadarChartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
