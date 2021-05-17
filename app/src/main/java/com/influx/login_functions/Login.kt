@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import com.influx.R
+import com.example.sensor_active_.R
+
+
 
 
 class Login : AppCompatActivity() {

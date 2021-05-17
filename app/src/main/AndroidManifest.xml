@@ -24,15 +24,19 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"></activity> <!-- Other Activity -->
-        <activity
-            android:name=".DatabasePages.MainDatabase"
-            android:label="@string/MainDatabase" />
+
+
         <activity
             android:name=".Raspberry_Pages.AddGateway"
             android:label="MainRaspberry" />
         <activity
             android:name=".Raspberry_Pages.connectRaspberry"
             android:label="connectRaspberry" />
+        <activity android:name="com.influx.Graph.GettingGraph" />
+        <activity android:name="com.influx.Graph.RadarChartActivity" />
+        <activity android:name="com.influx.Graph.PieChartActivity" />
+        <activity android:name="com.influx.Graph.BarChartActivity" />
+        <activity android:name="com.influx.login_functions.Login"/>
     </application>
 
 </manifest>

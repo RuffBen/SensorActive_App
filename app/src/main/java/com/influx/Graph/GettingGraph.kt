@@ -5,7 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.influx.R
+import com.example.sensor_active_.R
+
 import com.influx.dataClasses.InfluxBucket
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -37,7 +38,7 @@ class GettingGraph : AppCompatActivity() {
             startActivity(intent)
         }
         GlobalScope.launch {
-            listOfInfluxBuckets = influxCommunication().getBuckets()
+            //listOfInfluxBuckets = influxCommunication().getBuckets()
             println("list listOfInfluxBuckets is loadet${listOfInfluxBuckets.size} ")
             getSpinnerItems()
         }
