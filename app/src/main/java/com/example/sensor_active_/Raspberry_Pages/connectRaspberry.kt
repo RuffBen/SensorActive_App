@@ -68,14 +68,14 @@ class connectRaspberry : AppCompatActivity() {
             textViewContent= PreemtiveAuth(url, extension, username, password).run()
             val delimiter = "\"sensors\": {"
 
-            textViewSensors = textViewContent.split(delimiter)[1]
-
+               // textViewSensors = textViewContent.split(delimiter)[1]
 
             runOnUiThread{
                 searchLayout.removeAllViews()
 
                 //    text_view_result.text = textViewSensors
-                callForButtons()
+            //    if (textViewContent.contains("}"))
+                    callForButtons()
             }
         }
 
@@ -90,7 +90,7 @@ class connectRaspberry : AppCompatActivity() {
         GlobalScope.launch {
             textViewContent= PreemtiveAuth(url, extension, username, password).run()
             runOnUiThread{
-                text_view_result.text = textViewContent
+               // text_view_result.text = textViewContent
                 callForButtons()
 
             }
