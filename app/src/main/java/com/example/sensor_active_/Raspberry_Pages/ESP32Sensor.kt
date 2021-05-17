@@ -1,10 +1,12 @@
 package com.example.sensor_active_.Raspberry_Pages
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.example.sensor_active_.Overview
 import com.example.sensor_active_.R
 import com.example.sensor_active_.Raspberry_Pages.classes.Assert
 import com.example.sensor_active_.Raspberry_Pages.classes.PreemtiveAuth
@@ -70,8 +72,12 @@ class ESP32Sensor : AppCompatActivity() {
                 sensorNameXML.getText().toString(),
                 sensorIntervall.getText().toString()
             ).run()
+
         }
         Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+
+        val intent = Intent(this, Overview::class.java)
+        startActivity(intent)
 
     }
 
