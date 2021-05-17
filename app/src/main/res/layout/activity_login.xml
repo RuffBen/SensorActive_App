@@ -90,7 +90,7 @@
         android:layout_height="41dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/name" />
+        android:hint="@string/name" />
 
 
     <TextView
@@ -106,7 +106,8 @@
         android:layout_height="41dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/passwort"
+        android:hint="@string/passwort"
+
         android:autofillHints="" />
 
     <Button

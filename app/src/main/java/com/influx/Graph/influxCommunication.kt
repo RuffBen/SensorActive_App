@@ -7,12 +7,13 @@ import kotlinx.coroutines.runBlocking
 
 public class influxCommunication {
 
-    public fun getBuckets() : ArrayList<InfluxBucket>
+    public fun getBuckets(link: String, key: String, org: String) : ArrayList<InfluxBucket>
     {
         var buckets = ArrayList<InfluxBucket>()
-        
+        val influxDBClient = InfluxDBClientKotlinFactory.create(link, key.toCharArray(), org)
+
         runBlocking {
-            val influxDBClient = InfluxDBClientKotlinFactory.create("https://sensoractive.ddnss.de:8086", "qV_WvU2eJbUAvYrTRacX0VsV2SBncwq3kx4FH21z0Vq9XLYfikdqcdG7hialL4_ktpmiHJ2ui945Fq5SyotECQ==".toCharArray(), "SensorActive")
+
             val fluxQuery = ("buckets()")
 
             var nameCommas=-1
@@ -78,6 +79,11 @@ public class influxCommunication {
         return buckets
     }
 
+
+    public fun getOrganisations(name: String, password:String){
+
+
+    }
 
     public fun countCommas(stringToSearch : String,key : String): Int{
         var commas =-1

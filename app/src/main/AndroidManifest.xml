@@ -16,8 +16,7 @@
         <activity android:name=".Graph.RadarChartActivity" />
         <activity android:name=".Graph.PieChartActivity" />
         <activity android:name=".Graph.BarChartActivity" />
-        <activity android:name=".login_funktions.Login"
-            tools:ignore="DuplicateActivity">
+        <activity android:name=".login_functions.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
