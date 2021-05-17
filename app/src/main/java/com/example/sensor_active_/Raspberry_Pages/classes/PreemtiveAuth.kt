@@ -1,9 +1,9 @@
 package com.example.sensor_active_.Raspberry_Pages.classes
 
 import android.util.Log
-import com.google.gson.Gson
 import okhttp3.*
-import org.json.JSONObject
+import org.influxdb.impl.BasicAuthInterceptor
+
 import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager

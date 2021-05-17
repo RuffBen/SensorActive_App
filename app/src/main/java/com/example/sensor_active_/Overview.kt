@@ -9,7 +9,9 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.sensor_active_.DatabasePages.MainDatabase
+//To Main DataBasePage
+//import com.example.sensor_active_.DatabasePages.MainDatabase
+
 import com.example.sensor_active_.Raspberry_Pages.AddGateway
 import com.example.sensor_active_.Raspberry_Pages.classes.checkAvailable
 import com.example.sensor_active_.Raspberry_Pages.connectRaspberry
@@ -100,7 +102,7 @@ class Overview : AppCompatActivity() {
 
     fun pageDatabase(view: View) {
 
-        val intent = Intent(this, MainDatabase::class.java)
-        startActivity(intent)
+        //val intent = Intent(this, MainDatabase::class.java)
+        //startActivity(intent)
     }
 }
