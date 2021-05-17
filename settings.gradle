@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "Sensor_Active_"
+rootProject.name = "InfluxDB"
