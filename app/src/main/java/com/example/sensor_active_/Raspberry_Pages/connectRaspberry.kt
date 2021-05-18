@@ -27,9 +27,7 @@ class connectRaspberry : AppCompatActivity() {
     var username = ""
     var password = ""
     val PORT = ":8888"
-    val watingMessage = "waiting for results..."
     var textViewContent:String = ""
-    var textViewSensors = ""
     var recievedIPAddress = "non"
     var recievedHostName:String = "non"
     var recievedIPAddressHTTPS = ""
@@ -37,18 +35,26 @@ class connectRaspberry : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect_raspberry)
-        recievedIPAddress = intent.getStringExtra("ip_Address")
-         val delimiter = "///"
-            recievedHostName = recievedIPAddress.split(delimiter)[1]
-            recievedIPAddress = recievedIPAddress.split(delimiter)[0]
-            recievedIPAddressHTTPS = "https://" + recievedIPAddress + PORT
-            Log.i("SPLITTED STRING", recievedIPAddressHTTPS)
+        loadData()
+
 
 
         displayIpAddress.text = recievedHostName + "\n" + recievedIPAddressHTTPS
 
+
     }
 
+    fun loadData() {
+        val sharedPreferences = getSharedPreferences("IP_Active", MODE_PRIVATE)
+        recievedIPAddress = sharedPreferences.getString("IP_Active", "No IP Address found").toString()
+        val delimiter = "///"
+        recievedHostName = recievedIPAddress.split(delimiter)[1]
+        recievedIPAddress = recievedIPAddress.split(delimiter)[0]
+        recievedIPAddressHTTPS = "https://" + recievedIPAddress + PORT
+        Log.i("SPLITTED STRING", recievedIPAddressHTTPS)
+
+
+    }
 
     fun getInputs() {
      //   text_view_result.text = "watingMessage"
@@ -112,7 +118,7 @@ class connectRaspberry : AppCompatActivity() {
     }
 
     fun callForButtons(){
-        var iDS = JSONObject(JSONObject(textViewContent).get("data").toString()).get("sensors").toString()
+        val iDS = JSONObject(JSONObject(textViewContent).get("data").toString()).get("sensors").toString()
         val jsonObject = JSONObject(iDS)
         val keys: Iterator<String> = jsonObject.keys()
         //loop to get all sensor names
@@ -127,7 +133,7 @@ class connectRaspberry : AppCompatActivity() {
     }
 
     fun addButtons(_sensorName: String?) {
-        var sensorID = _sensorName
+        val sensorID = _sensorName
         //define the Parent of the Buttons
         var linLay: LinearLayout = searchLayout
 
@@ -160,8 +166,11 @@ class connectRaspberry : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun changeToSearchSensors(view: View) {
 
+
+    fun addSensor(view: View) {
+        val intent = Intent(this, AddSensor::class.java)
+        startActivity(intent)
 
     }
 }

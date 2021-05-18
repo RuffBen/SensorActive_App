@@ -71,6 +71,11 @@ open class PreemtiveAuth(_url: String, _extension: String, _username: String, _p
             "/change_sensor" -> request = change_sensor(request)
             "/sensoractive_gateway" -> request = status(request)
             "/change_ud" -> request = change_ud(request)
+            "/search_bluetooth-devices" -> request = searchBluetoothDevices(request)
+            "/read_serial_address" -> request = searchBluetoothSerial(request)
+            "/add_sensor" -> request = addSensor(request)
+            "/remove_sensor" -> request = removeSensor(request)
+
 
             else -> textResponse = "Unknown extension, please contact an admin on gitHub"
         }
@@ -106,7 +111,7 @@ open class PreemtiveAuth(_url: String, _extension: String, _username: String, _p
     open fun change_sensor(_request: Request): Request {
         var request = _request
 
-        var formBody: RequestBody = FormBody.Builder()
+        val formBody: RequestBody = FormBody.Builder()
                 .add("sensor_id", "sensoreins")
                 .add("sensor_new_name", "neuernam11e")
                 .add("sync_interval", "1337")
@@ -119,6 +124,23 @@ open class PreemtiveAuth(_url: String, _extension: String, _username: String, _p
 
     }
     open fun change_ud(_request: Request) : Request{
+        return _request
+    }
+
+    open fun searchBluetoothDevices(_request: Request) : Request {
+        //wird eine oder mehrere "data": "ID-code,ID-code,ID-code" zurückgeben, wenn neue geräte verfügbar sind in bluetooth reichweite
+        return _request
+    }
+    open fun searchBluetoothSerial(_request: Request) : Request {
+        //wird eine "data": "ID-code" zurückgeben, wenn neue geräte verfügbar sind - wenn über serielle schnittstelle verbunden ist
+        return _request
+    }
+    open fun addSensor(_request: Request) : Request {
+        //gibt success true zurück, wenn sensor hinzugefügt wurde
+        return _request
+    }
+    open fun removeSensor(_request: Request) : Request {
+        //gibt success true zurück, wenn sensor entfernt wurde
         return _request
     }
 }

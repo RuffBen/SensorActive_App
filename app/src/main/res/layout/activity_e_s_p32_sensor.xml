@@ -17,8 +17,8 @@
 
 
     <TableLayout
-        android:layout_width="409dp"
-        android:layout_height="630dp"
+        android:layout_width="408dp"
+        android:layout_height="363dp"
         android:layout_marginTop="64dp"
         android:stretchColumns="0"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,10 +41,10 @@
                 android:id="@+id/sensorIDXML"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="Sensor ID"
                 android:width="250dp"
-                android:inputType="text"
+                android:autofillHints="Sensor ID"
                 android:enabled="false"
+                android:inputType="text"
 
                 />
 
@@ -64,8 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="Sensor ID"
-                android:inputType="text"
-                />
+                android:inputType="text" />
         </TableRow>
 
         <TableRow>
@@ -81,10 +80,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="Bluetooth ID"
-                android:inputType="text"
                 android:enabled="false"
-                />
+                android:inputType="text" />
         </TableRow>
+
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
@@ -101,13 +100,13 @@
                 android:id="@+id/sensorIntervall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="Sync Interval"
                 android:width="250dp"
-                android:inputType="number"
-                />
+                android:autofillHints="Sync Interval"
+                android:inputType="number" />
 
 
         </TableRow>
+
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
@@ -124,11 +123,10 @@
                 android:id="@+id/sensorStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="Sensor ID"
                 android:width="250dp"
-                android:inputType="text"
+                android:autofillHints="Sensor ID"
                 android:enabled="false"
-                />
+                android:inputType="text" />
 
 
         </TableRow>
@@ -142,14 +140,31 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
+
             <Button
                 android:id="@+id/sendChanges"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="changes"
                 android:layout_column="2"
+                android:onClick="changes"
                 android:text="Submit" />
+
+
         </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        <Button
+            android:id="@+id/button2"
+            android:onClick="removeSesnor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="remove Sensor" />
+        </TableRow>
+
+
 
     </TableLayout>
 
