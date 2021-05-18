@@ -25,6 +25,7 @@ class Overview : AppCompatActivity() {
 
     val SHARED_PREFS = "IP_Addresses"
     var buttonText: String? = ""
+    val SHARED_PREF_ACTIVE_IP = "IP_Active"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overview)
@@ -90,8 +91,12 @@ class Overview : AppCompatActivity() {
 
     fun changeActivityToConnect(_ip_address: String) {
 
+        val sharedPreferences = getSharedPreferences(SHARED_PREF_ACTIVE_IP, MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
         val intent = Intent(this, connectRaspberry::class.java)
-        intent.putExtra("ip_Address", _ip_address)
+
+        editor.putString("IP_Active", _ip_address)
+        editor.apply()
         startActivity(intent)
     }
 
