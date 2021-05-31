@@ -71,6 +71,7 @@ class AddSensor : AppCompatActivity() {
     }
 
     fun searchSensorButton(view: View) {
+        progressBar.progress = 25
         GlobalScope.launch {
 
             response = PreemtiveAuthSensors(
@@ -83,6 +84,7 @@ class AddSensor : AppCompatActivity() {
                 ""
             ).run()
             runOnUiThread{
+                progressBar.progress = 50
                 searchLayout.removeAllViews()
                 //    text_view_result.text = textViewSensors
                 //    if (textViewContent.contains("}"))
@@ -96,6 +98,7 @@ class AddSensor : AppCompatActivity() {
         }
     }
     fun callForButtons(_response:String){
+        progressBar.progress = 75
         val responseData = JSONObject(_response).get("data").toString()
         val delimiter = ","
         var responseDataList = responseData.split(delimiter)
@@ -104,7 +107,7 @@ class AddSensor : AppCompatActivity() {
         for (item in responseDataList){
             addButton(item)
         }
-
+        progressBar.progress = 100
         //loop to get all sensor names
 
 

@@ -17,6 +17,7 @@
 
 
     <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="408dp"
         android:layout_height="363dp"
         android:layout_marginTop="64dp"
@@ -155,18 +156,25 @@
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
-        <Button
-            android:id="@+id/button2"
-            android:onClick="removeSesnor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:text="remove Sensor" />
-        </TableRow>
 
+        </TableRow>
 
 
     </TableLayout>
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:backgroundTint="@color/darkred"
+        android:onClick="removeSesnor"
+        android:text="remove Sensor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.008"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+        app:layout_constraintVertical_bias="0.81" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

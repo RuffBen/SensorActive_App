@@ -77,22 +77,28 @@ open class PreemtiveAuth(_url: String, _extension: String, _username: String, _p
             "/remove_sensor" -> request = removeSensor(request)
 
 
-            else -> textResponse = "Unknown extension, please contact an admin on gitHub"
+            else -> textResponse = "error"
         }
         Log.i("PreemtiveAuth-Method", request.toString())
         try {
             //Hier wird der finale Aufruf abgeschickt
             var response: Response = client.newCall(request).execute()
             textResponse = response.body!!.string()
+            Log.i("TextResponse ", "Text: " + textResponse)
+
+            return textResponse
+
 
         } catch (e: Exception) {
 
             Log.i("Preem-Counter: ", "04-Error")
 
             println(e.toString())
+            Log.i("TextResponse ", "Text: " + textResponse)
+            textResponse = "error"
+            return textResponse
+
         }
-        Log.i("TextResponse ", "Text: " + textResponse)
-        return textResponse
 
     }
 
