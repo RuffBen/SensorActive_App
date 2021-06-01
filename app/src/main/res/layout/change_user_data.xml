@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Raspberry_Pages.changeUserData">
+
+    <TextView
+        android:id="@+id/headline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change user Data"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="408dp"
+        android:layout_height="363dp"
+        android:layout_marginTop="64dp"
+        android:stretchColumns="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headline">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="Old Username"
+
+                />
+
+            <EditText
+                android:id="@+id/oldUN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:width="250dp"
+                android:autofillHints="Sensor ID"
+                android:inputType="text"
+
+                />
+
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="Old Password" />
+
+            <EditText
+                android:id="@+id/oldPW"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Sensor ID"
+                android:inputType="text" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="New Username" />
+
+            <EditText
+                android:id="@+id/newUN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Bluetooth ID"
+                android:inputType="text" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="New Password"
+
+                />
+
+            <EditText
+                android:id="@+id/newPW"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:width="250dp"
+                android:autofillHints="Sync Interval" />
+
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+
+            <Button
+                android:id="@+id/sendChanges"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:onClick="applyChanges"
+                android:text="Submit" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </TableRow>
+
+
+    </TableLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

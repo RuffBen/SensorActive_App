@@ -33,11 +33,12 @@ class connectRaspberry : AppCompatActivity() {
     var recievedHostName: String = "non"
     var recievedIPAddressHTTPS = ""
     val SHARED_PREFS = "IP_Addresses"
+    var shared_prefs_ip = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect_raspberry)
         loadData()
-        getSensorStatus()
+        //getSensorStatus()
 
         displayIpAddress.text = recievedHostName + "\n" + recievedIPAddressHTTPS
 
@@ -52,6 +53,7 @@ class connectRaspberry : AppCompatActivity() {
         val delimiter = "///"
         recievedHostName = recievedIPAddress.split(delimiter)[1]
         recievedIPAddress = recievedIPAddress.split(delimiter)[0]
+        shared_prefs_ip = recievedIPAddress
         recievedIPAddressHTTPS = "https://" + recievedIPAddress + PORT
         Log.i("SPLITTED STRING", recievedIPAddressHTTPS)
 
@@ -104,22 +106,13 @@ class connectRaspberry : AppCompatActivity() {
             }
         }
     }
-
-
-    fun sendPost(view: View) {
-        extension = "/change" //Option -> KEY hier
-        getInputs()
-        // Run on other Thread
-        GlobalScope.launch {
-            textViewContent = PreemtiveAuth(url, extension, username, password).run()
-            runOnUiThread {
-                // text_view_result.text = textViewContent
-                callForButtons()
-
-            }
-        }
-
+    fun changeUD(view: View) {
+        val intent = Intent(this, changeUserData::class.java)
+        startActivity(intent)
     }
+
+
+
 
     fun removeIP(view: View) {
         val sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
@@ -204,4 +197,5 @@ class connectRaspberry : AppCompatActivity() {
         startActivity(intent)
 
     }
+
 }
