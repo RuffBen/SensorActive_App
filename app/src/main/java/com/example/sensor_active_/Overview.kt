@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 //To Main DataBasePage
 //import com.example.sensor_active_.DatabasePages.MainDatabase
-
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.sensor_active_.Raspberry_Pages.AddGateway
 import com.example.sensor_active_.Raspberry_Pages.classes.checkAvailable
 import com.example.sensor_active_.Raspberry_Pages.connectRaspberry
@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.activity_add_gateway.searchLayout
 import kotlinx.android.synthetic.main.activity_connect_raspberry.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-
 
 class Overview : AppCompatActivity() {
 
@@ -54,7 +53,6 @@ class Overview : AppCompatActivity() {
             addButtons(key, value.toString())
             Log.i("loadData, Overview: ", buttonText)
         }
-
 
     }
 
