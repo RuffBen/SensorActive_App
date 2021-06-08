@@ -39,7 +39,6 @@ class connectRaspberry : AppCompatActivity() {
         setContentView(R.layout.activity_connect_raspberry)
         loadData()
         //getSensorStatus()
-        var wakawaka = "BLALS"
         displayIpAddress.text = recievedHostName + "\n" + recievedIPAddressHTTPS
 
         swipeRefresh()
