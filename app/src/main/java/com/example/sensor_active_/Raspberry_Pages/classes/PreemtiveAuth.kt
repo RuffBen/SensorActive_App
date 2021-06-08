@@ -1,14 +1,13 @@
 package com.example.sensor_active_.Raspberry_Pages.classes
 
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import okhttp3.*
 import org.influxdb.impl.BasicAuthInterceptor
-
 import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
-
 
 var client = OkHttpClient()
 
@@ -88,6 +87,7 @@ open class PreemtiveAuth(_url: String, _extension: String, _username: String, _p
 
             }
             return textResponse
+
 
 
         } catch (e: Exception) {
