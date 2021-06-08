@@ -34,6 +34,7 @@ class connectRaspberry : AppCompatActivity() {
     var recievedIPAddressHTTPS = ""
     val SHARED_PREFS = "IP_Addresses"
     var shared_prefs_ip = ""
+    val SHARED_PREFS_IP_LIST = "IP_STATUS_LIST"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect_raspberry)
@@ -102,6 +103,13 @@ class connectRaspberry : AppCompatActivity() {
                 //    text_view_result.text = textViewSensors
                 //    if (textViewContent.contains("}"))
                 callForButtons()
+                val sharedPreferences = getSharedPreferences(SHARED_PREFS_IP_LIST, MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                Log.i("added to IP_LIST: ", textViewContent)
+                editor.putString(recievedIPAddress, textViewContent)
+                editor.apply()
+                Log.i("SHARED PREFS IP_LIST", sharedPreferences.getString(recievedIPAddress, "no content for this status" + recievedIPAddress))
+
             }
         }
     }
