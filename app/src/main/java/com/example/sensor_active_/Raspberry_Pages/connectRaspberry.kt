@@ -39,7 +39,6 @@ class connectRaspberry : AppCompatActivity() {
         setContentView(R.layout.activity_connect_raspberry)
         loadData()
         //getSensorStatus()
-
         displayIpAddress.text = recievedHostName + "\n" + recievedIPAddressHTTPS
 
         swipeRefresh()
