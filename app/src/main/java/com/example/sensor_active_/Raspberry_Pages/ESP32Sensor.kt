@@ -11,6 +11,7 @@ import com.example.sensor_active_.R
 import com.example.sensor_active_.Raspberry_Pages.classes.Assert
 import com.example.sensor_active_.Raspberry_Pages.classes.PreemtiveAuth
 import com.example.sensor_active_.Raspberry_Pages.classes.PreemtiveAuthChange
+import com.example.sensor_active_.Raspberry_Pages.classes.PreemtiveAuthSensors
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_e_s_p32_sensor.*
 import kotlinx.coroutines.GlobalScope
@@ -41,8 +42,6 @@ class ESP32Sensor : AppCompatActivity() {
     }
 
     fun setValues() {
-
-
         val gSon = Gson().fromJson<Assert>(recivedString, Assert::class.java)
         sensorIDXML.setText(sensorID)
         sensorName = gSon.sensor_name.toString()
@@ -55,15 +54,13 @@ class ESP32Sensor : AppCompatActivity() {
         status = gSon.status.toString()
         sensorStatus.setText(status)
 
-
     }
 
     fun changes(view: View) {
         Log.i("ESP32", url)
-
         GlobalScope.launch {
 
-            var blabla = PreemtiveAuthChange(
+            PreemtiveAuthChange(
                 url,
                 "/change_sensor",
                 "demo",
@@ -72,13 +69,31 @@ class ESP32Sensor : AppCompatActivity() {
                 sensorNameXML.getText().toString(),
                 sensorIntervall.getText().toString()
             ).run()
-
+            runOnUiThread {
+                Toast.makeText(applicationContext, "Success", Toast.LENGTH_SHORT).show()
+                val intent = Intent(applicationContext, Overview::class.java)
+                startActivity(intent)
+            }
         }
-        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
-
-        val intent = Intent(this, Overview::class.java)
-        startActivity(intent)
-
     }
 
+    fun removeSesnor(view: View) {
+        Log.i("remove Sensor", sensorID)
+        GlobalScope.launch {
+            PreemtiveAuthChange(
+                url,
+                "/remove_sensor",
+                "demo",
+                "demo",
+                sensorID,
+                "",
+                ""
+            ).run()
+            runOnUiThread {
+                Toast.makeText(applicationContext, "Success", Toast.LENGTH_SHORT).show()
+                val intent = Intent(applicationContext, Overview::class.java)
+                startActivity(intent)
+            }
+        }
+    }
 }
