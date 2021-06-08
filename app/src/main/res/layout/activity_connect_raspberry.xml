@@ -156,7 +156,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:onClick="changeToSearchSensors"
         android:text="@string/search_for_sensors"
         android:onClick="addSensor"
         app:layout_constraintEnd_toEndOf="parent"
