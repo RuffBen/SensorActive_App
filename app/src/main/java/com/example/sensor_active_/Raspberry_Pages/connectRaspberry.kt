@@ -33,7 +33,12 @@ class connectRaspberry : AppCompatActivity() {
     var recievedHostName: String = "non"
     var recievedIPAddressHTTPS = ""
     val SHARED_PREFS = "IP_Addresses"
+<<<<<<< Updated upstream
     var shared_prefs_ip = ""
+=======
+    val SHARED_PREFS_IP_LIST = "IP_STATUS_LIST"
+
+>>>>>>> Stashed changes
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect_raspberry)
@@ -93,7 +98,11 @@ class connectRaspberry : AppCompatActivity() {
         getInputs()
         // Run on other Thread
         GlobalScope.launch {
+<<<<<<< Updated upstream
             textViewContent = PreemtiveAuth(url, extension, username, password).run()
+=======
+            textViewContent= PreemtiveAuth(url, extension, username, password).run()
+>>>>>>> Stashed changes
 
             // textViewSensors = textViewContent.split(delimiter)[1]
 
@@ -101,6 +110,7 @@ class connectRaspberry : AppCompatActivity() {
                 searchLayout.removeAllViews()
 
                 //    text_view_result.text = textViewSensors
+<<<<<<< Updated upstream
                 //    if (textViewContent.contains("}"))
                 callForButtons()
             }
@@ -109,6 +119,22 @@ class connectRaspberry : AppCompatActivity() {
     fun changeUD(view: View) {
         val intent = Intent(this, changeUserData::class.java)
         startActivity(intent)
+=======
+            //    if (textViewContent.contains("}"))
+                    callForButtons()
+                val sharedPreferences = getSharedPreferences(SHARED_PREFS_IP_LIST, MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                Log.i("added to IP_LIST: ", textViewContent)
+                editor.putString(recievedIPAddress, textViewContent)
+                editor.apply()
+                Log.i("SHARED PREFS IP_LIST", sharedPreferences.getString(recievedIPAddress, "no content for this status" + recievedIPAddress))
+            }
+        }
+
+
+
+
+>>>>>>> Stashed changes
     }
 
 
