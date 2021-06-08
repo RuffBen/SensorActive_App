@@ -10,6 +10,7 @@ class PreemtiveAuthSensors(_url: String, _extension: String, _username: String, 
 ){
     private val bluetoothAddress = _bluetoothAddress
     private val newName = _newName
+
     override fun searchBluetoothDevices(_request: Request) : Request {
         //wird eine oder mehrere "data": "ID-code,ID-code,ID-code" zurückgeben, wenn neue geräte verfügbar sind in bluetooth reichweite
         var request = _request
@@ -21,6 +22,7 @@ class PreemtiveAuthSensors(_url: String, _extension: String, _username: String, 
 
         return request
     }
+
     override fun searchBluetoothSerial(_request: Request) : Request {
         //wird eine "data": "ID-code" zurückgeben, wenn neue geräte verfügbar sind - wenn über serielle schnittstelle verbunden ist
         var request = _request
@@ -32,6 +34,7 @@ class PreemtiveAuthSensors(_url: String, _extension: String, _username: String, 
 
         return request
     }
+
     override fun addSensor(_request: Request) : Request {
         //gibt success true zurück, wenn sensor hinzugefügt wurde
         var request = _request

@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Raspberry_Pages.ESP32Sensor">
+    tools:context=".Raspberry_Pages.changeUserData">
 
     <TextView
         android:id="@+id/headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="Change user Data"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,17 +34,16 @@
                 android:layout_width="52dp"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="@string/sensor_id"
+                android:text="Old Username"
 
                 />
 
             <EditText
-                android:id="@+id/sensorIDXML"
+                android:id="@+id/oldUN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:width="250dp"
                 android:autofillHints="Sensor ID"
-                android:enabled="false"
                 android:inputType="text"
 
                 />
@@ -58,10 +57,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="@string/sensor_name" />
+                android:text="Old Password" />
 
             <EditText
-                android:id="@+id/sensorNameXML"
+                android:id="@+id/oldPW"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="Sensor ID"
@@ -74,14 +73,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="@string/bluetooth_address" />
+                android:text="New Username" />
 
             <EditText
-                android:id="@+id/sensorBluetooth"
+                android:id="@+id/newUN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="Bluetooth ID"
-                android:enabled="false"
                 android:inputType="text" />
         </TableRow>
 
@@ -93,41 +91,16 @@
                 android:layout_width="52dp"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="@string/sync_interval"
+                android:text="New Password"
 
                 />
 
             <EditText
-                android:id="@+id/sensorIntervall"
+                android:id="@+id/newPW"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:width="250dp"
-                android:autofillHints="Sync Interval"
-                android:inputType="number" />
-
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <TextView
-                android:layout_width="52dp"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:text="@string/status"
-
-                />
-
-            <EditText
-                android:id="@+id/sensorStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:width="250dp"
-                android:autofillHints="Sensor ID"
-                android:enabled="false"
-                android:inputType="text" />
+                android:autofillHints="Sync Interval" />
 
 
         </TableRow>
@@ -147,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
-                android:onClick="changes"
+                android:onClick="applyChanges"
                 android:text="Submit" />
 
 
@@ -161,20 +134,4 @@
 
 
     </TableLayout>
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_column="1"
-        android:backgroundTint="@color/darkred"
-        android:onClick="removeSesnor"
-        android:text="remove Sensor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.008"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-        app:layout_constraintVertical_bias="0.81" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

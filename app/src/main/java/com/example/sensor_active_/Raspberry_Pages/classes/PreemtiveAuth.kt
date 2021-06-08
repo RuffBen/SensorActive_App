@@ -70,29 +70,36 @@ open class PreemtiveAuth(_url: String, _extension: String, _username: String, _p
             "/status" -> request = status(request)
             "/change_sensor" -> request = change_sensor(request)
             "/sensoractive_gateway" -> request = status(request)
-            "/change_ud" -> request = change_ud(request)
             "/search_bluetooth-devices" -> request = searchBluetoothDevices(request)
             "/read_serial_address" -> request = searchBluetoothSerial(request)
             "/add_sensor" -> request = addSensor(request)
             "/remove_sensor" -> request = removeSensor(request)
+            "/change_ud" -> request = change_userdata(request)
 
-
-            else -> textResponse = "Unknown extension, please contact an admin on gitHub"
+            else -> textResponse = "error"
         }
         Log.i("PreemtiveAuth-Method", request.toString())
         try {
             //Hier wird der finale Aufruf abgeschickt
             var response: Response = client.newCall(request).execute()
             textResponse = response.body!!.string()
+            Log.i("TextResponse ", "Text: " + textResponse)
+            if(extension == "/status"){
+
+            }
+            return textResponse
+
 
         } catch (e: Exception) {
 
             Log.i("Preem-Counter: ", "04-Error")
 
             println(e.toString())
+            Log.i("TextResponse ", "Text: " + textResponse)
+            textResponse = "error"
+            return textResponse
+
         }
-        Log.i("TextResponse ", "Text: " + textResponse)
-        return textResponse
 
     }
 
@@ -123,9 +130,6 @@ open class PreemtiveAuth(_url: String, _extension: String, _username: String, _p
         return request
 
     }
-    open fun change_ud(_request: Request) : Request{
-        return _request
-    }
 
     open fun searchBluetoothDevices(_request: Request) : Request {
         //wird eine oder mehrere "data": "ID-code,ID-code,ID-code" zurückgeben, wenn neue geräte verfügbar sind in bluetooth reichweite
@@ -141,6 +145,10 @@ open class PreemtiveAuth(_url: String, _extension: String, _username: String, _p
     }
     open fun removeSensor(_request: Request) : Request {
         //gibt success true zurück, wenn sensor entfernt wurde
+        return _request
+    }
+    open fun change_userdata(_request: Request): Request {
+        //gibt success true zurück, wenn Benutzerdaten geändert wurden wurde, benötigt old_pw und new_pw
         return _request
     }
 }

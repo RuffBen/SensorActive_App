@@ -14,6 +14,8 @@ class PreemtiveAuthChange(_url: String, _extension: String, _username: String, _
     val sensor_id = _sensor_id
     val sync_interval = _sync_interval
     val sensor_new_name = _sensor_new_name
+
+
     override fun change_sensor(_request: Request): Request{
         var request = _request
 
