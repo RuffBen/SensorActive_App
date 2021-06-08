@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,17 +8,34 @@
     android:layout_height="match_parent"
     tools:context=".Raspberry_Pages.connectRaspberry">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <Button
-        android:id="@+id/sendPost"
+        android:id="@+id/changeUD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="sendPost"
-        android:text="Send Post"
+        android:onClick="changeUD"
+        android:text="Change User Data"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollViewSearch"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.597" />
 
     <Button
         android:id="@+id/getStatus"
@@ -35,12 +54,10 @@
         android:layout_width="169dp"
         android:layout_height="46dp"
         android:layout_marginTop="136dp"
-        android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="demo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ip_port"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -141,6 +158,7 @@
         android:layout_marginTop="4dp"
         android:onClick="changeToSearchSensors"
         android:text="@string/search_for_sensors"
+        android:onClick="addSensor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ip_username" />

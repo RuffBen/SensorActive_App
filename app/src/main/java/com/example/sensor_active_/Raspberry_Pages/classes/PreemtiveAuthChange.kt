@@ -2,6 +2,7 @@ package com.example.sensor_active_.Raspberry_Pages.classes
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
 import okhttp3.FormBody
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -13,6 +14,8 @@ class PreemtiveAuthChange(_url: String, _extension: String, _username: String, _
     val sensor_id = _sensor_id
     val sync_interval = _sync_interval
     val sensor_new_name = _sensor_new_name
+
+
     override fun change_sensor(_request: Request): Request{
         var request = _request
 
@@ -27,6 +30,20 @@ class PreemtiveAuthChange(_url: String, _extension: String, _username: String, _
 
         return request
 
+    }
+
+    override fun removeSensor(_request: Request) : Request {
+        //gibt success true zurück, wenn sensor entfernt wurde
+        var request = _request
+        Log.i("deviceID", sensor_id)
+        val formBody: RequestBody = FormBody.Builder()
+            .add("device_id", sensor_id)
+            .build()
+        request = request.newBuilder()
+            .post(formBody)
+            .build()
+
+        return request
     }
 
 }

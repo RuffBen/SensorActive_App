@@ -1,9 +1,9 @@
 package com.example.sensor_active_.Raspberry_Pages.classes
 
 import android.util.Log
-import com.google.gson.Gson
 import okhttp3.*
-import org.json.JSONObject
+import org.influxdb.impl.BasicAuthInterceptor
+
 import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
@@ -39,9 +39,10 @@ open class PreemtiveAuth(_url: String, _extension: String, _username: String, _p
 
 
         //Build Client
+        // Missing Login
         client = OkHttpClient.Builder()
                 .addInterceptor(
-                    BasicAuthInterceptor(url, extension, username, password)
+                    BasicAuthInterceptor(url, extension ,username, password)
                 )
                 .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
                 .hostnameVerifier { _, _ -> true }
@@ -69,24 +70,36 @@ open class PreemtiveAuth(_url: String, _extension: String, _username: String, _p
             "/status" -> request = status(request)
             "/change_sensor" -> request = change_sensor(request)
             "/sensoractive_gateway" -> request = status(request)
-            "/change_ud" -> request = change_ud(request)
+            "/search_bluetooth-devices" -> request = searchBluetoothDevices(request)
+            "/read_serial_address" -> request = searchBluetoothSerial(request)
+            "/add_sensor" -> request = addSensor(request)
+            "/remove_sensor" -> request = removeSensor(request)
+            "/change_ud" -> request = change_userdata(request)
 
-            else -> textResponse = "Unknown extension, please contact an admin on gitHub"
+            else -> textResponse = "error"
         }
         Log.i("PreemtiveAuth-Method", request.toString())
         try {
             //Hier wird der finale Aufruf abgeschickt
             var response: Response = client.newCall(request).execute()
             textResponse = response.body!!.string()
+            Log.i("TextResponse ", "Text: " + textResponse)
+            if(extension == "/status"){
+
+            }
+            return textResponse
+
 
         } catch (e: Exception) {
 
             Log.i("Preem-Counter: ", "04-Error")
 
             println(e.toString())
+            Log.i("TextResponse ", "Text: " + textResponse)
+            textResponse = "error"
+            return textResponse
+
         }
-        Log.i("TextResponse ", "Text: " + textResponse)
-        return textResponse
 
     }
 
@@ -105,7 +118,7 @@ open class PreemtiveAuth(_url: String, _extension: String, _username: String, _p
     open fun change_sensor(_request: Request): Request {
         var request = _request
 
-        var formBody: RequestBody = FormBody.Builder()
+        val formBody: RequestBody = FormBody.Builder()
                 .add("sensor_id", "sensoreins")
                 .add("sensor_new_name", "neuernam11e")
                 .add("sync_interval", "1337")
@@ -117,7 +130,25 @@ open class PreemtiveAuth(_url: String, _extension: String, _username: String, _p
         return request
 
     }
-    open fun change_ud(_request: Request) : Request{
+
+    open fun searchBluetoothDevices(_request: Request) : Request {
+        //wird eine oder mehrere "data": "ID-code,ID-code,ID-code" zurückgeben, wenn neue geräte verfügbar sind in bluetooth reichweite
+        return _request
+    }
+    open fun searchBluetoothSerial(_request: Request) : Request {
+        //wird eine "data": "ID-code" zurückgeben, wenn neue geräte verfügbar sind - wenn über serielle schnittstelle verbunden ist
+        return _request
+    }
+    open fun addSensor(_request: Request) : Request {
+        //gibt success true zurück, wenn sensor hinzugefügt wurde
+        return _request
+    }
+    open fun removeSensor(_request: Request) : Request {
+        //gibt success true zurück, wenn sensor entfernt wurde
+        return _request
+    }
+    open fun change_userdata(_request: Request): Request {
+        //gibt success true zurück, wenn Benutzerdaten geändert wurden wurde, benötigt old_pw und new_pw
         return _request
     }
 }

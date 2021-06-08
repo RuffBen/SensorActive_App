@@ -1,4 +1,4 @@
-package com.example.sensor_active_
+package com.influx
 
 import org.junit.Test
 

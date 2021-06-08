@@ -14,5 +14,15 @@
     <string name="bluetooth_address">Bluetooth Address</string>
     <string name="sync_interval">Sync interval</string>
     <string name="status">Status</string>
-    <string name="search_for_sensors">Search for Sensors</string>
+    <string name="search_for_sensors">Add Sensor</string>
+    <string name="_8086">_8086</string>
+    <string name="andere">andere</string>
+    <string name="name">name</string>
+    <string name="passwort">passwort</string>
+    <string name="zeitspanne">zeitspanne</string>
+    <string name="bucket">Bucket</string>
+    <string name="radar_chart">radar_chart</string>
+    <string name="pie_chart">pie_chart</string>
+    <string name="bar_chart">bar_chart</string>
+    <string name="search_sensor">search Sensor</string>
 </resources>

@@ -5,13 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import com.example.sensor_active_.DatabasePages.MainDatabase
+
 
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        //setContentView(R.layout.activity_main)
     }
     
 
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     fun pageDatabase(view: View) {
         Log.d("World", "Hello Database")
 
-         val intent = Intent(this, MainDatabase::class.java)
+         //val intent = Intent(this, MainDatabase::class.java)
         startActivity(intent)
 
     }

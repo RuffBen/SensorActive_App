@@ -7,24 +7,31 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.sensor_active_.DatabasePages.MainDatabase
+//To Main DataBasePage
+//import com.example.sensor_active_.DatabasePages.MainDatabase
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.sensor_active_.Raspberry_Pages.AddGateway
 import com.example.sensor_active_.Raspberry_Pages.classes.checkAvailable
 import com.example.sensor_active_.Raspberry_Pages.connectRaspberry
+import com.influx.login_functions.Login
 import kotlinx.android.synthetic.main.activity_add_gateway.*
+import kotlinx.android.synthetic.main.activity_add_gateway.searchLayout
+import kotlinx.android.synthetic.main.activity_connect_raspberry.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-
 
 class Overview : AppCompatActivity() {
 
     val SHARED_PREFS = "IP_Addresses"
     var buttonText: String? = ""
+    val SHARED_PREF_ACTIVE_IP = "IP_Active"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overview)
+        swipeRefresh()
 
 
     }
@@ -34,6 +41,7 @@ class Overview : AppCompatActivity() {
         var lin: LinearLayout = searchLayout
         lin.removeAllViewsInLayout()
         loadData()
+
 
     }
 
@@ -46,9 +54,19 @@ class Overview : AppCompatActivity() {
             Log.i("loadData, Overview: ", buttonText)
         }
 
-
     }
 
+    fun swipeRefresh() {
+        swipe_refresh.setOnRefreshListener {
+            Toast.makeText(this, "page refreshed", Toast.LENGTH_SHORT).show()
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
+            overridePendingTransition(0, 0);
+           // swipe_refresh.isRefreshing = false
+        }
+
+    }
 
     fun addButtons(key: String?, value: String) {
         val ip = key + "///" + value
@@ -62,8 +80,8 @@ class Overview : AppCompatActivity() {
         linLay.addView(newlinLay)
         // setting layout_width and layout_height using layout parameters
         dynamicButton.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
         )
         dynamicButton.setOnClickListener(View.OnClickListener { view ->
             // Log.i("ButtonClick:", dynamicButton.text.toString())
@@ -74,9 +92,19 @@ class Overview : AppCompatActivity() {
             trueFalse = checkAvailable().isReachable(key.toString(), 8888, 500)
 
             if (trueFalse) {
-                dynamicButton.setTextColor(ContextCompat.getColor(applicationContext, R.color.HFUgreen))
+                dynamicButton.setTextColor(
+                    ContextCompat.getColor(
+                        applicationContext,
+                        R.color.HFUgreen
+                    )
+                )
             } else {
-                dynamicButton.setTextColor(ContextCompat.getColor(applicationContext, R.color.darkred))
+                dynamicButton.setTextColor(
+                    ContextCompat.getColor(
+                        applicationContext,
+                        R.color.darkred
+                    )
+                )
             }
         }
         newlinLay.addView(dynamicButton)
@@ -87,8 +115,12 @@ class Overview : AppCompatActivity() {
 
     fun changeActivityToConnect(_ip_address: String) {
 
+        val sharedPreferences = getSharedPreferences(SHARED_PREF_ACTIVE_IP, MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
         val intent = Intent(this, connectRaspberry::class.java)
-        intent.putExtra("ip_Address", _ip_address)
+
+        editor.putString("IP_Active", _ip_address)
+        editor.apply()
         startActivity(intent)
     }
 
@@ -100,7 +132,7 @@ class Overview : AppCompatActivity() {
 
     fun pageDatabase(view: View) {
 
-        val intent = Intent(this, MainDatabase::class.java)
+        val intent = Intent(this, Login::class.java)
         startActivity(intent)
     }
 }
