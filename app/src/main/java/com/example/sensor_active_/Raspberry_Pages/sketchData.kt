@@ -3,6 +3,7 @@ package com.example.sensor_active_.Raspberry_Pages
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Html
+import android.text.Html.FROM_HTML_MODE_LEGACY
 import android.util.Log
 import android.util.TypedValue
 import android.view.ViewGroup
@@ -72,7 +73,7 @@ class sketchData : AppCompatActivity() {
                         workingSensors++
                     }
                     var textSensors =
-                        "Currently are " + workingSensors + " from " + totalSensors + " Sensors are online."
+                        "Currently are " + workingSensors + " from " + totalSensors + " Sensors are online"
                     var textSenorsTime =
                         "" + sensorsNeedCheckout + " from " + totalSensors + " Sensors have recieved data within the last 15 min, last checkout was " + minSinceLastCheckout + " min ago"
                     CreateNewTextView(key, textSensors, textSenorsTime)
@@ -118,7 +119,9 @@ class sketchData : AppCompatActivity() {
 
     }
 
-    fun CreateNewTextView(_IPAddress: String, textSensors: String, textTime: String) {
+    fun CreateNewTextView(_IPAddress: String, _textSensors: String, _textTime: String) {
+        var textSensors = _textSensors
+        var textTime = _textTime
         val layout = findViewById<RelativeLayout>(R.id.root)
 
         // Create TextView programmatically.
@@ -132,15 +135,36 @@ class sketchData : AppCompatActivity() {
         if (viewID > 1) {
             layoutParam.addRule(RelativeLayout.BELOW, (viewID - 1));
         }
+        when (workingSensors) {
+            totalSensors -> textSensors = "<font color=#008c58>" + textSensors + "</font>"
+            0 -> textSensors = "<font color=#800000>" + textSensors + "</font>"
+            else -> {
+                textSensors = "<font color=#FFD300>" + textSensors + "</font>"
+            }
+        }
+        when (minSinceLastCheckout) {
+            in 0..9 -> textTime = "<font color=#008c58>" + textTime + "</font>"
+            in 10..15 -> textTime = "<font color=#FFD300>" + textTime + "</font>"
+            else -> {
+                textTime = "<font color=#800000>" + textTime + "</font>"
+
+            }
+        }
+
 
         // setting text
-        textView.setText(""+ viewID + ". \n Sensor_IP: " + _IPAddress + ",\n " + textSensors   + ",\n " + textTime)
+        textView.setText(
+            Html.fromHtml(
+                "$viewID.  Gateway_IP: $_IPAddress,<br> $textSensors, <br>$textTime",
+                FROM_HTML_MODE_LEGACY
+            )
+        )
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
-        if(minSinceLastCheckout> 15) {
-            textView.setTextColor(Color.RED)
+        if (minSinceLastCheckout > 15) {
+            //     textView.setTextColor(Color.RED)
 
-        }else {
-            textView.setTextColor(Color.GREEN)
+        } else {
+            //    textView.setTextColor(Color.GREEN)
 
         }
 
