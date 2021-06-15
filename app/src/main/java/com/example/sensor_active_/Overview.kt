@@ -16,6 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.sensor_active_.Raspberry_Pages.AddGateway
 import com.example.sensor_active_.Raspberry_Pages.classes.checkAvailable
 import com.example.sensor_active_.Raspberry_Pages.connectRaspberry
+import com.example.sensor_active_.Raspberry_Pages.sketchData
 import com.influx.login_functions.Login
 import kotlinx.android.synthetic.main.activity_add_gateway.*
 import kotlinx.android.synthetic.main.activity_add_gateway.searchLayout
@@ -134,5 +135,11 @@ class Overview : AppCompatActivity() {
 
         val intent = Intent(this, Login::class.java)
         startActivity(intent)
+    }
+
+    fun toSketch(view: View) {
+        val intent = Intent(this, sketchData::class.java)
+        startActivity(intent)
+
     }
 }
