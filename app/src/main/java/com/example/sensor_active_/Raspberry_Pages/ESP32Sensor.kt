@@ -30,6 +30,7 @@ class ESP32Sensor : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_e_s_p32_sensor)
+        setTitle("Sensor configuration");
         sensorID = intent.getStringExtra("sensorID")
         url = intent.getStringExtra("IP")
 

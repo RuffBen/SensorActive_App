@@ -29,6 +29,8 @@ class AddGateway : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_gateway)
+        setTitle("Add Gateway");
+
     }
 
     //function which calls the Connected Page -> also adds https to the string and sends the ip over to next activity
