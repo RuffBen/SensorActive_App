@@ -34,9 +34,13 @@ class connectRaspberry : AppCompatActivity() {
     var recievedIPAddressHTTPS = ""
     val SHARED_PREFS = "IP_Addresses"
     var shared_prefs_ip = ""
+    val SHARED_PREFS_IP_LIST = "IP_STATUS_LIST"
+    val SHARED_PREFS_IP_ACTIVE = "IP_Active"
+    val SHARED_PREFS_PW_LIST = "PW_LIST"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect_raspberry)
+        setTitle("Gateway configuration");
         loadData()
         //getSensorStatus()
         displayIpAddress.text = recievedHostName + "\n" + recievedIPAddressHTTPS
@@ -46,9 +50,9 @@ class connectRaspberry : AppCompatActivity() {
     }
 
     fun loadData() {
-        val sharedPreferences = getSharedPreferences("IP_Active", MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences(SHARED_PREFS_IP_ACTIVE, MODE_PRIVATE)
         recievedIPAddress =
-            sharedPreferences.getString("IP_Active", "No IP Address found").toString()
+            sharedPreferences.getString(SHARED_PREFS_IP_ACTIVE, "No IP Address found").toString()
         val delimiter = "///"
         recievedHostName = recievedIPAddress.split(delimiter)[1]
         recievedIPAddress = recievedIPAddress.split(delimiter)[0]
@@ -63,10 +67,10 @@ class connectRaspberry : AppCompatActivity() {
         swipe_refresh.setOnRefreshListener {
 
             Toast.makeText(this, "page refreshed", Toast.LENGTH_SHORT).show()
-            finish();
-            overridePendingTransition(0, 0);
-            startActivity(getIntent());
-            overridePendingTransition(0, 0);
+            finish()
+            overridePendingTransition(0, 0)
+            startActivity(getIntent())
+            overridePendingTransition(0, 0)
             swipe_refresh.isRefreshing = false
         }
 
@@ -102,6 +106,13 @@ class connectRaspberry : AppCompatActivity() {
                 //    text_view_result.text = textViewSensors
                 //    if (textViewContent.contains("}"))
                 callForButtons()
+                val sharedPreferences = getSharedPreferences(SHARED_PREFS_IP_LIST, MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                Log.i("added to IP_LIST: ", textViewContent)
+                editor.putString(recievedIPAddress, textViewContent)
+                editor.apply()
+                Log.i("SHARED PREFS IP_LIST", sharedPreferences.getString(recievedIPAddress, "no content for this status" + recievedIPAddress))
+
             }
         }
     }

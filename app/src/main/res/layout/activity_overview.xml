@@ -58,6 +58,18 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DatabaseButton" />
+    <Button
+        android:id="@+id/AddGateway"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Add Gateway"
+        android:onClick="addGateway"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/GatewayHeadline" />
+
 
     <TextView
         android:id="@+id/GatewayHeadline"
@@ -71,16 +83,16 @@
         app:layout_constraintTop_toBottomOf="@+id/DatabaseButton" />
 
     <Button
-        android:id="@+id/AddGateway"
+        android:id="@+id/ToSketch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Add Gateway"
-        android:onClick="addGateway"
+        android:onClick="toSketch"
+        android:text="to Overview"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GatewayHeadline" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewSearch" />
 
     <ScrollView
         android:id="@+id/scrollViewSearch"
