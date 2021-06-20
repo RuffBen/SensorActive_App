@@ -77,7 +77,7 @@ class sketchData : AppCompatActivity() {
                     var textSensors =
                         "at that time, " + workingSensors + " from " + totalSensors + " Sensors were online"
                     var textSenorsCheckout =
-                        "and " + sensorsNeedCheckout + " from " + totalSensors + " Sensors have sent data within the last 15 min"
+                        "at that time " + sensorsNeedCheckout + " from " + totalSensors + " Sensors have sent data within the last 15 min"
                     CreateNewTextView(key, textSenorsTime, textSensors, textSenorsCheckout)
 
                 }
@@ -103,7 +103,7 @@ class sketchData : AppCompatActivity() {
         date = date.split(".")[0]
         var dateTime = LocalDateTime.parse(date)
         var timeDiffTrans: Long = ChronoUnit.MINUTES.between(last_succ_trans_time, dateTime)
-        if (timeDiffTrans <= 15) {
+        if (timeDiffTrans <= 10) {
             sensorsNeedCheckout++
         }
 

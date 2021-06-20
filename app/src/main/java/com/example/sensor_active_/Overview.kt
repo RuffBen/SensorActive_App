@@ -38,6 +38,7 @@ class Overview : AppCompatActivity() {
 
     }
 
+
     override fun onResume() {
         super.onResume()
         var lin: LinearLayout = searchLayout

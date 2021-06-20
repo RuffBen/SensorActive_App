@@ -36,6 +36,7 @@ class connectRaspberry : AppCompatActivity() {
     var shared_prefs_ip = ""
     val SHARED_PREFS_IP_LIST = "IP_STATUS_LIST"
     val SHARED_PREFS_IP_ACTIVE = "IP_Active"
+    val SHARED_PREFS_PW_LIST = "PW_LIST"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect_raspberry)
