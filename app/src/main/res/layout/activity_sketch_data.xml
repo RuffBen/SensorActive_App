@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:id="@+id/root"
     tools:context=".Raspberry_Pages.sketchData">
 
-    <TextView
-        android:id="@+id/visData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/statusAll"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/visData" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:onClick="statusAll"
+        android:text="refresh all" />
+</RelativeLayout>

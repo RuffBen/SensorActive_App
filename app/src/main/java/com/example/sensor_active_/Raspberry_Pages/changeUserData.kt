@@ -23,6 +23,8 @@ class changeUserData : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.change_user_data)
+        setTitle("Update Userdata");
+
         loadData()
 
     }
