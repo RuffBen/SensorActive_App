@@ -1,51 +1,59 @@
 package com.influx.login_functions
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import com.example.sensor_active_.R
-
-
+import com.influx.Graph.BarChartActivity
+import com.influx.Graph.SetInterface
+import com.influx.dataClasses.sessionData
+import com.influxdb.client.kotlin.InfluxDBClientKotlinFactory
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class Login : AppCompatActivity() {
-    var standardPORT = true
+    private var standardPORT = true
 
-
-    internal lateinit var cb_saveLogin:CheckBox
-    internal lateinit var websiteLink: EditText
-    internal lateinit var loginName: EditText
-    internal lateinit var loginPassword: EditText
+    private lateinit var cbSaveLogin:CheckBox
+    private lateinit var websiteLink: EditText
+    private lateinit var loginName: EditText
+    private lateinit var loginPassword: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val btn_Login = findViewById(R.id.bt_Login) as Button
-        cb_saveLogin = findViewById(R.id.checkBoxSaveLogin) as CheckBox
+        val btnLogin = findViewById<Button>(R.id.bt_Login)
+        cbSaveLogin = findViewById(R.id.checkBoxSaveLogin)
 
-        websiteLink = findViewById(R.id.text_WebsiteLogin) as EditText
-        loginName = findViewById(R.id.editTextPersonName) as EditText
-        loginPassword = findViewById(R.id.editTextPassword) as EditText
+        websiteLink = findViewById(R.id.text_WebsiteLogin)
+        loginName = findViewById(R.id.editTextPersonName)
+        loginPassword = findViewById(R.id.editTextPassword)
 
         loadData()
         println("loadWorks")
 
-        btn_Login.setOnClickListener{
-            if(cb_saveLogin.isChecked){
+        btnLogin.setOnClickListener{
+            if(cbSaveLogin.isChecked){
                saveData()
             }
-            getUserInfos()
+            GlobalScope.launch {
+                val link = getLink()
+                checkLogin(link)
+            }
         }
 
     }
 
-    fun getUserInfos():ArrayList<String> {
+    private fun getLink():String {
 
-        var outStringList = ArrayList<String>()
-        var portID = "8086"
-        var portIDAlternativ = findViewById(R.id.text_portAlternativ) as EditText
+        val outStringList = ArrayList<String>()
+        var portID = ":8086"
+        val portIDAlternativ = findViewById<EditText>(R.id.text_portAlternativ)
 
         if (!standardPORT){
             portID = portIDAlternativ.text.toString()
@@ -56,30 +64,57 @@ class Login : AppCompatActivity() {
         var websiteLinkUse= websiteLink.text.toString()
 
         if(!websiteLinkUse.contains(".")){
-            outStringList.add("###false###")
-            return outStringList
+
+            return "###false###"
         }
 
         if(!websiteLink.text.toString().contains("http")){
-            websiteLinkUse = "https"+ websiteLinkUse
+            websiteLinkUse = "https://$websiteLinkUse"
+            println(websiteLinkUse)
         }
 
         if(portID.contains(".*[a-zA-Z].*")&&!standardPORT){
             outStringList.add("###false###")
-            return outStringList
+            return "###false###"
         }
 
-        println(websiteLinkUse+":"+portID+loginName.text.toString() +loginPassword.text.toString())
+        val out= websiteLinkUse+portID
+        println(out)
+        return  out
+    }
 
-        //val influxDBClient = InfluxDBClientKotlinFactory.create(websiteLink.toString()+":"+portID,loginName.toString(),loginPassword.toString().toCharArray())
 
-        return outStringList
+    suspend fun checkLogin(link:String){
+
+        var name= loginName.text.toString()
+        var password = loginPassword.text.toString()
+        Log.i("LoginData",loginName.text.toString()+"+"+loginPassword.text.toString())
+        Log.i("LoginData",name+"+"+password)
+        val influxDBClient = InfluxDBClientKotlinFactory.create(link,"qV_WvU2eJbUAvYrTRacX0VsV2SBncwq3kx4FH21z0Vq9XLYfikdqcdG7hialL4_ktpmiHJ2ui945Fq5SyotECQ==".toCharArray(), "SensorActive")
+        sessionData.create()
+        val fluxQuery = ("buckets()")
+
+        val result=influxDBClient.getQueryKotlinApi().queryRaw(fluxQuery)
+        var i=0;
+        var more=false
+        for(token in result){
+            println(token)
+            i++
+            if(i==2){
+                more=true
+            }
+        }
+        if(more) {
+            val intent = Intent(this, SetInterface::class.java)
+            startActivity(intent)
+        }
+
     }
 
     fun onRadioButtonClicked(view: View) {
 
         if (view is RadioButton) {
-            var portIDAlternativ = findViewById(R.id.text_portAlternativ) as EditText
+            val portIDAlternativ = findViewById<EditText>(R.id.text_portAlternativ)
             // Is the button now checked?
             val checked = view.isChecked
 
@@ -87,7 +122,7 @@ class Login : AppCompatActivity() {
             when (view.getId()) {
                 R.id.RadioB_StandartPort->
                     if (checked) {
-                        portIDAlternativ.setVisibility(View.GONE)
+                        portIDAlternativ.visibility = View.GONE
                         standardPORT=true
                     }
                 R.id.RadioB_differentPort ->

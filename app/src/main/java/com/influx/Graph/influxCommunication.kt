@@ -1,16 +1,26 @@
 package com.influx.Graph
 
+import android.util.Log
 import com.influx.dataClasses.InfluxBucket
+
 import com.influxdb.client.kotlin.InfluxDBClientKotlinFactory
+
 import java.util.*
 import kotlinx.coroutines.runBlocking
 
+
+import com.influxdb.client.domain.Organization
+
 public class influxCommunication {
 
-    public fun getBuckets(link: String, key: String, org: String) : ArrayList<InfluxBucket>
+
+
+    fun getBuckets(org: String) : ArrayList<InfluxBucket>
     {
+
         var buckets = ArrayList<InfluxBucket>()
-        val influxDBClient = InfluxDBClientKotlinFactory.create(link, key.toCharArray(), org)
+        //Log.i("LoginData",sessionData.websiteLinkInput+"+"+sessionData.keyInput)
+        val influxDBClient = InfluxDBClientKotlinFactory.create("https://sensoractive.ddnss.de:8086","qV_WvU2eJbUAvYrTRacX0VsV2SBncwq3kx4FH21z0Vq9XLYfikdqcdG7hialL4_ktpmiHJ2ui945Fq5SyotECQ==".toCharArray(), "SensorActive")
 
         runBlocking {
 
@@ -71,21 +81,34 @@ public class influxCommunication {
                         println("Key organizationID not Found")
                     }
                 }
-
             }
             influxDBClient.close()
         }
-
         return buckets
     }
 
 
-    public fun getOrganisations(name: String, password:String){
+    fun getOrganisations(): MutableList<String> {
+
+            var outList = mutableListOf<String>()
+            val fluxQuery = ("findOrganizations()")
+            val influxDBClient = InfluxDBClientKotlinFactory.create(
+                "https://sensoractive.ddnss.de:8086",
+                "qV_WvU2eJbUAvYrTRacX0VsV2SBncwq3kx4FH21z0Vq9XLYfikdqcdG7hialL4_ktpmiHJ2ui945Fq5SyotECQ==".toCharArray()
+            )
+            //result = influxDBClient.getOrganizationsApi().findOrganizations().stream()
+             //   .findFirst()
+             //   .orElseThrow(IllegalStateException::new)
 
 
+            //for(org in result) {
+            //    outList.add(org)
+
+            //}
+            return outList
     }
 
-    public fun countCommas(stringToSearch : String,key : String): Int{
+    private fun countCommas(stringToSearch : String, key : String): Int{
         var commas =-1
         var words=stringToSearch.split(',')
         println(words.size)
@@ -98,11 +121,34 @@ public class influxCommunication {
         return commas
     }
 
-    public fun getKey(stringToSearch: String,keyNumber : Int): String{
+    fun getKey(stringToSearch: String,keyNumber : Int): String{
         var words=stringToSearch.split(',')
         if(words.size<keyNumber){
             return "end"
         }
         return words[keyNumber]
     }
+
+
+
+    fun getMesurment(bucketName: String){
+        Log.i("MesurmentData",bucketName)
+        runBlocking {
+            val fluxQuery = ("from(bucket:  \"GatewayData\")\n" +
+                    "  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)")
+
+
+            val influxDBClient = InfluxDBClientKotlinFactory.create("https://sensoractive.ddnss.de:8086","qV_WvU2eJbUAvYrTRacX0VsV2SBncwq3kx4FH21z0Vq9XLYfikdqcdG7hialL4_ktpmiHJ2ui945Fq5SyotECQ==".toCharArray(), "SensorActive")
+
+
+            val result  = influxDBClient.getQueryKotlinApi().queryRaw(fluxQuery)
+            if(result!=null) {
+                for (bucketLine in result) {
+                    println(bucketLine)
+                }
+            }
+
+        }
+    }
+
 }
