@@ -2,6 +2,8 @@ package com.influx.dataClasses
 
 
 import android.widget.*
+import com.influx.Graph.influxCommunication
+import com.influxdb.client.kotlin.InfluxDBClientKotlinFactory
 
 
 /*
@@ -10,36 +12,23 @@ If informations arent available this class sends notifikations to the active act
 for the missing input.
  */
 
-class sessionData() {
+class sessionData {
 
     companion object Factory {
         fun create():  sessionData =  sessionData()
     }
 
-    val passwordInput= String
-    val nameInput= String
-    val orgInput= String
-    val linkInput= String
-    val websiteInput = String
+    public val passwordInput= Char
+    public val nameInput= String
+    public val orgInput= "SensorActive"
+    public val keyInput= "qV_WvU2eJbUAvYrTRacX0VsV2SBncwq3kx4FH21z0Vq9XLYfikdqcdG7hialL4_ktpmiHJ2ui945Fq5SyotECQ==".toCharArray()
+    public val websiteLinkInput = "https://sensoractive.ddnss.de:8086"
 
-    public fun setBuckets(org: String){
-
-
-    }
-
-    public fun getBuckets(){
-
-    }
+    public val listofTokens = listOf<InfluxBucket>()
+    public val organisations = listOf<String>()
+    public val buckets = listOf<InfluxBucket>()
 
 
-    public fun  getOrgs(){
-
-        //communicator.getOrgs()
-
-    }
-
-    public fun  loadOrgs(){
 
 
-    }
 }

@@ -46,6 +46,7 @@ dependencies {
 
     /* Added for influxDB Connection*/
     implementation 'com.influxdb:influxdb-client-kotlin:2.1.0'
+    implementation 'com.influxdb:influxdb-client-java:2.3.0'
 
 
     /* influcDB to get rid of suspend and be able to work with continous functions */

@@ -33,7 +33,7 @@
         <activity
             android:name=".Raspberry_Pages.connectRaspberry"
             android:label="connectRaspberry" />
-        <activity android:name="com.influx.Graph.GettingGraph" />
+        <activity android:name="com.influx.Graph.SetInterface" />
         <activity android:name="com.influx.Graph.RadarChartActivity" />
         <activity android:name="com.influx.Graph.PieChartActivity" />
         <activity android:name="com.influx.Graph.BarChartActivity" />

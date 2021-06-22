@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="24dp"
-    android:paddingRight="32dp"
-    android:paddingTop="100dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     android:orientation="vertical" >
-
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        />
     <TextView
         android:id="@+id/textView"
         android:layout_width="313dp"
@@ -27,31 +29,32 @@
         android:layout_height="wrap_content"
         android:text="Port"
         />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        <RadioGroup
             android:id="@+id/rationButtonsPort"
             android:layout_width="match_parent"
             android:layout_height="60dp">
 
 
-        <RadioButton
-            android:id="@+id/RadioB_StandartPort"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="@string/_8086"
-            android:checked="true"
-            android:onClick="onRadioButtonClicked"/>
+            <RadioButton
+                android:id="@+id/RadioB_StandartPort"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="@string/_8086"
+                android:checked="true"
+                android:onClick="onRadioButtonClicked"/>
 
-        <RadioButton
-            android:id="@+id/RadioB_differentPort"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="@string/andere"
-            android:onClick="onRadioButtonClicked"/>
-       </RadioGroup>
+            <RadioButton
+                android:id="@+id/RadioB_differentPort"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="@string/andere"
+                android:onClick="onRadioButtonClicked"/>
+        </RadioGroup>
     </LinearLayout>
 
     <EditText
@@ -66,7 +69,6 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         />
-
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
@@ -91,7 +93,10 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/name" />
-
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        />
 
     <TextView
         android:id="@+id/textView4"
@@ -106,9 +111,8 @@
         android:layout_height="41dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="@string/passwort"
+        android:hint="@string/password" />
 
-        android:autofillHints="" />
 
     <Button
         android:id="@+id/bt_Login"
