@@ -20,19 +20,23 @@ import org.json.JSONObject
 
 class ESP32Sensor : AppCompatActivity() {
 
-    var url = ""
+    var activeIP: String = "No IP Address found"
+    val PORT = ":8888"
+    var activeIPHTTPS = ""
     var recivedString: String? = ""
     var sensorID: String = ""
     var sensorName = ""
     var bluetoothAddress = ""
     var syncInterval = ""
     var status = ""
+    val SHARED_PREFS_PW_LIST = "PW_LIST"
+    private var username = ""
+    private var password = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_e_s_p32_sensor)
         setTitle("Sensor configuration");
         sensorID = intent.getStringExtra("sensorID")
-        url = intent.getStringExtra("IP")
 
         recivedString = intent.getStringExtra("Content")
         recivedString =
@@ -40,6 +44,7 @@ class ESP32Sensor : AppCompatActivity() {
         recivedString = JSONObject(recivedString).get(sensorID).toString()
 
         setValues()
+        loadData()
     }
 
     fun setValues() {
@@ -57,23 +62,52 @@ class ESP32Sensor : AppCompatActivity() {
 
     }
 
+    private fun loadData() {
+        val sharedPreferences = getSharedPreferences("IP_Active", MODE_PRIVATE)
+        activeIP = sharedPreferences.getString("IP_Active", "No IP Address found").toString()
+        val delimiter = "///"
+        activeIP = activeIP.split(delimiter)[0]
+        activeIPHTTPS = "https://" + activeIP + PORT
+
+        val sharedPreferencesPW = getSharedPreferences(SHARED_PREFS_PW_LIST, MODE_PRIVATE)
+
+        var userValue = sharedPreferencesPW.getString(activeIP, "no Userdata found")
+        if (userValue == "no Userdata found") {
+            Toast.makeText(this, "Please set Logindata on Gateways page!", Toast.LENGTH_SHORT)
+                .show()
+        } else {
+            username = JSONObject(userValue).get("username").toString()
+            password = JSONObject(userValue).get("password").toString()
+
+        }
+    }
+
     fun changes(view: View) {
-        Log.i("ESP32", url)
+        Log.i("ESP32", activeIPHTTPS)
         GlobalScope.launch {
 
-            PreemtiveAuthChange(
-                url,
+            var response = PreemtiveAuthChange(
+                activeIPHTTPS,
                 "/change_sensor",
-                "demo",
-                "demo",
+                username,
+                password,
                 sensorIDXML.getText().toString(),
                 sensorNameXML.getText().toString(),
                 sensorIntervall.getText().toString()
             ).run()
             runOnUiThread {
-                Toast.makeText(applicationContext, "Success", Toast.LENGTH_SHORT).show()
-                val intent = Intent(applicationContext, Overview::class.java)
-                startActivity(intent)
+                if (response.contains("Invalid credentials")) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Wrong Username or Password",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                } else {
+                    Toast.makeText(applicationContext, "success", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(applicationContext, Overview::class.java)
+                    startActivity(intent)
+                }
             }
         }
     }
@@ -81,19 +115,24 @@ class ESP32Sensor : AppCompatActivity() {
     fun removeSesnor(view: View) {
         Log.i("remove Sensor", sensorID)
         GlobalScope.launch {
-            PreemtiveAuthChange(
-                url,
+            val response = PreemtiveAuthChange(
+                activeIPHTTPS,
                 "/remove_sensor",
-                "demo",
-                "demo",
+                username,
+                password,
                 sensorID,
                 "",
                 ""
             ).run()
             runOnUiThread {
-                Toast.makeText(applicationContext, "Success", Toast.LENGTH_SHORT).show()
-                val intent = Intent(applicationContext, Overview::class.java)
-                startActivity(intent)
+                if(response.contains("Invalid credentials")){
+                    Toast.makeText(applicationContext, "Wrong Username or Password", Toast.LENGTH_SHORT).show()
+
+                }else {
+                    Toast.makeText(applicationContext, "success", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(applicationContext, Overview::class.java)
+                    startActivity(intent)
+                }
             }
         }
     }

@@ -46,7 +46,6 @@ class connectRaspberry : AppCompatActivity() {
         displayIpAddress.text = recievedHostName + "\n" + recievedIPAddressHTTPS
 
         swipeRefresh()
-
     }
 
     fun loadData() {
@@ -59,6 +58,16 @@ class connectRaspberry : AppCompatActivity() {
         shared_prefs_ip = recievedIPAddress
         recievedIPAddressHTTPS = "https://" + recievedIPAddress + PORT
         Log.i("SPLITTED STRING", recievedIPAddressHTTPS)
+        val sharedPreferencesPW = getSharedPreferences(SHARED_PREFS_PW_LIST, MODE_PRIVATE)
+        var userValue = sharedPreferencesPW.getString(shared_prefs_ip, "no Userdata found")
+        if(userValue == "no Userdata found"){
+            Toast.makeText(this, "Could not find default Logindata", Toast.LENGTH_SHORT).show()
+        }else {
+            ip_username.setText(JSONObject(userValue).get("username").toString())
+           ip_password.setText(JSONObject(userValue).get("password").toString())
+
+        }
+
 
 
     }
@@ -102,16 +111,21 @@ class connectRaspberry : AppCompatActivity() {
 
             runOnUiThread {
                 searchLayout.removeAllViews()
+                if(textViewContent.contains("Invalid credentials")){
+                    Toast.makeText(applicationContext, "Wrong Username or Password", Toast.LENGTH_SHORT).show()
 
-                //    text_view_result.text = textViewSensors
-                //    if (textViewContent.contains("}"))
-                callForButtons()
-                val sharedPreferences = getSharedPreferences(SHARED_PREFS_IP_LIST, MODE_PRIVATE)
-                val editor = sharedPreferences.edit()
-                Log.i("added to IP_LIST: ", textViewContent)
-                editor.putString(recievedIPAddress, textViewContent)
-                editor.apply()
-                Log.i("SHARED PREFS IP_LIST", sharedPreferences.getString(recievedIPAddress, "no content for this status" + recievedIPAddress))
+                }else {
+                    //    text_view_result.text = textViewSensors
+                    //    if (textViewContent.contains("}"))
+                    callForButtons()
+                    val sharedPreferences = getSharedPreferences(SHARED_PREFS_IP_LIST, MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    Log.i("added to IP_LIST: ", textViewContent)
+                    editor.putString(recievedIPAddress, textViewContent)
+                    editor.apply()
+                    Log.i("SHARED PREFS IP_LIST", sharedPreferences.getString(recievedIPAddress, "no content for this status" + recievedIPAddress))
+                }
+
 
             }
         }
@@ -205,6 +219,22 @@ class connectRaspberry : AppCompatActivity() {
     fun addSensor(view: View) {
         val intent = Intent(this, AddSensor::class.java)
         startActivity(intent)
+
+    }
+
+    fun setUserdata(view: View) {
+        val sharedPreferences = getSharedPreferences(SHARED_PREFS_PW_LIST, MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        Log.i("shardALL: ", sharedPreferences.all.toString())
+        var ip_username_ = ip_username.text
+        var ip_password_ = ip_password.text
+        Log.i("USERDATA SAVE", "{\"username\":\"$ip_username_\",\"password\":\"$ip_password_\"}")
+        editor.putString(shared_prefs_ip, "{\"username\":\"$ip_username_\",\"password\":\"$ip_password_\"}")
+        editor.apply()
+        Toast.makeText(this, "New Logindata set", Toast.LENGTH_SHORT).show()
+
+
+
 
     }
 

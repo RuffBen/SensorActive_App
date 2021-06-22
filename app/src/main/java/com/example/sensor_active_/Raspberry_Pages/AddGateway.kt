@@ -34,7 +34,8 @@ class AddGateway : AppCompatActivity() {
     }
 
     //function which calls the Connected Page -> also adds https to the string and sends the ip over to next activity
-    fun ConnectPage(view: View) {
+    //removed since we dont need manual connect -> only via search and click
+  /*  fun ConnectPage(view: View) {
         GlobalScope.launch {
             ip_HostName_and_Address = ip_address_input.text.toString()
             val ip_HostName: String = InetAddress.getByName(ip_HostName_and_Address).hostName
@@ -43,7 +44,7 @@ class AddGateway : AppCompatActivity() {
 
             changeActivityToConnection(ip_HostName_and_Address)
         }
-    }
+    } */
 
     fun changeActivityToConnection(_ip_address: String) {
 

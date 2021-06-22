@@ -22,6 +22,10 @@ class AddSensor : AppCompatActivity() {
     val PORT = ":8888"
     var activeIPHTTPS = ""
     var response = ""
+    val SHARED_PREFS_PW_LIST = "PW_LIST"
+    private var username = ""
+    private var password = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_sensor)
@@ -35,35 +39,52 @@ class AddSensor : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("IP_Active", MODE_PRIVATE)
         activeIP = sharedPreferences.getString("IP_Active", "No IP Address found").toString()
         val delimiter = "///"
-        activeIPHTTPS = activeIP.split(delimiter)[0]
-        activeIPHTTPS = "https://" + activeIPHTTPS + PORT
-        Log.i("SPLITTED STRING", activeIPHTTPS)
+        activeIP = activeIP.split(delimiter)[0]
+        activeIPHTTPS = "https://" + activeIP + PORT
+        val sharedPreferencesPW = getSharedPreferences(SHARED_PREFS_PW_LIST, MODE_PRIVATE)
+        var userValue = sharedPreferencesPW.getString(activeIP, "no Userdata found")
+        if(userValue == "no Userdata found"){
+            Toast.makeText(this, "Please set Logindata on Gateways page!", Toast.LENGTH_SHORT).show()
+        }else {
+            username = JSONObject(userValue).get("username").toString()
+            password = JSONObject(userValue).get("password").toString()
+
+        }
 
 
     }
     fun searchSensorSerial(view: View) {
         GlobalScope.launch {
-
+            Log.i("Userdata", "un:" + username + ", " + password)
             response = PreemtiveAuthSensors(
                 activeIPHTTPS,
                 "/read_serial_address",
-                "demo",
-                "demo",
+                username,
+                password,
                 "",
                 "",
                 ""
             ).run()
             runOnUiThread{
                 searchLayout.removeAllViews()
-                //    text_view_result.text = textViewSensors
-                //    if (textViewContent.contains("}"))
-                if(JSONObject(response).get("success") == true)
-                    Toast.makeText(applicationContext, response, Toast.LENGTH_SHORT).show()
+                if(response.contains("Invalid credentials")){
+                    Toast.makeText(applicationContext, "Wrong Username or Password", Toast.LENGTH_SHORT).show()
 
-                //     callForButtons(response)
-                else{
-                    Toast.makeText(applicationContext, "no Sensor connected", Toast.LENGTH_SHORT).show()
+                }else {
+                    //    text_view_result.text = textViewSensors
+                    //    if (textViewContent.contains("}"))
+                    if (JSONObject(response).get("success") == true)
+                        Toast.makeText(applicationContext, response, Toast.LENGTH_SHORT).show()
 
+                    //     callForButtons(response)
+                    else {
+                        Toast.makeText(
+                            applicationContext,
+                            "no Sensor connected",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    }
                 }
 
             }
@@ -78,22 +99,28 @@ class AddSensor : AppCompatActivity() {
             response = PreemtiveAuthSensors(
                 activeIPHTTPS,
                 "/search_bluetooth-devices",
-                "demo",
-                "demo",
+                username,
+                password,
                 "",
                 "",
                 ""
             ).run()
             runOnUiThread{
-                progressBar.progress = 50
-                searchLayout.removeAllViews()
-                //    text_view_result.text = textViewSensors
-                //    if (textViewContent.contains("}"))
-                if(JSONObject(response).get("success") == true)
-                    callForButtons(response)
-                else{
-                    Toast.makeText(applicationContext, "no Sensor found", Toast.LENGTH_SHORT).show()
+                if(response.contains("Invalid credentials")){
+                    Toast.makeText(applicationContext, "Wrong Username or Password", Toast.LENGTH_SHORT).show()
+                    progressBar.progress = 0
+                }else {
+                    progressBar.progress = 50
+                    searchLayout.removeAllViews()
+                    //    text_view_result.text = textViewSensors
+                    //    if (textViewContent.contains("}"))
+                    if (JSONObject(response).get("success") == true)
+                        callForButtons(response)
+                    else {
+                        Toast.makeText(applicationContext, "no Sensor found", Toast.LENGTH_SHORT)
+                            .show()
 
+                    }
                 }
             }
         }
