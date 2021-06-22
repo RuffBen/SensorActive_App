@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:onClick="getStatus"
-        android:text="Status"
+        android:text="Checkout Sensors"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollViewSearch"
@@ -56,7 +56,8 @@
         android:layout_marginTop="136dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="demo"
+        android:text=""
+        android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,7 +81,7 @@
         android:layout_marginTop="136dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="demo"
+        android:text=""
         app:layout_constraintEnd_toStartOf="@+id/ip_password"
         app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +120,7 @@
         android:layout_marginTop="36dp"
         android:backgroundTint="@color/darkred"
         android:onClick="removeIP"
-        android:text="remove IP"
+        android:text="remove Gateway"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.013"
@@ -161,5 +162,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ip_username" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="setUserdata"
+        android:text="set current Userdata"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changeUD" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sensor_active_.R
 import com.example.sensor_active_.Raspberry_Pages.classes.PreemtiveAuth
@@ -33,6 +34,7 @@ class sketchData : AppCompatActivity() {
     var sensorsNeedCheckout = 0
     var minSinceLastCheckout: Long = 0
     var viewID = 1
+    val SHARED_PREFS_PW_LIST = "PW_LIST"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -148,7 +150,7 @@ class sketchData : AppCompatActivity() {
             );
 
         }
-        when(checkRaspberryAvailable(IPAddress)){
+        when (checkRaspberryAvailable(IPAddress)) {
             true -> IPAddress = "<font color=#008c58>$IPAddress</font>"
             false -> IPAddress = "<font color=#800000>$IPAddress</font>"
 
@@ -202,14 +204,44 @@ class sketchData : AppCompatActivity() {
         GlobalScope.launch {
 
             for ((key, value) in allPrefs) {
-                var textViewContent =
-                    PreemtiveAuth("https://$key:8888", "/status", "demo", "demo").run()
-                runOnUiThread {
-                    val editor = sharedPreferencesALL_IP.edit()
-                    Log.i("added to IP_LIST: ", textViewContent)
-                    editor.putString(key, textViewContent)
-                    editor.apply()
+                var username = ""
+                var password = ""
+                val sharedPreferencesPW = getSharedPreferences(SHARED_PREFS_PW_LIST, MODE_PRIVATE)
 
+                var userValue = sharedPreferencesPW.getString(key, "no Userdata found")
+                if (userValue == "no Userdata found") {
+                    Toast.makeText(
+                        applicationContext,
+                        "Please set Logindata on Gateways page for IP: " + key,
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                    break
+
+                } else {
+                    username = JSONObject(userValue).get("username").toString()
+                    password = JSONObject(userValue).get("password").toString()
+
+
+                    var textViewContent =
+                        PreemtiveAuth("https://$key:8888", "/status", username, password).run()
+                    runOnUiThread {
+                        if(textViewContent.contains("Invalid credentials")){
+                            Toast.makeText(applicationContext, "Wrong Username or Password for IP: " + key, Toast.LENGTH_SHORT).show()
+
+                        }else if (textViewContent.contains("error")) {
+                            Toast.makeText(
+                                applicationContext,
+                                "Server not responding",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }else {
+                            val editor = sharedPreferencesALL_IP.edit()
+                            Log.i("added to IP_LIST: ", textViewContent)
+                            editor.putString(key, textViewContent)
+                            editor.apply()
+                        }
+                    }
                 }
             }
 
