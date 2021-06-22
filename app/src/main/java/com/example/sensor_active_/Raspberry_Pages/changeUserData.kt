@@ -52,9 +52,19 @@ class changeUserData : AppCompatActivity() {
                     newPW.getText().toString(),
                     ).run()
                 runOnUiThread {
-                    Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_SHORT).show()
-                    val intent = Intent(applicationContext, Overview::class.java)
-                    startActivity(intent)
+
+                    if (response.contains("error")) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Server not responding",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }else {
+                        Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_SHORT)
+                            .show()
+                        val intent = Intent(applicationContext, Overview::class.java)
+                        startActivity(intent)
+                    }
                 }
             }
 

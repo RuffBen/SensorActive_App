@@ -114,7 +114,9 @@ class connectRaspberry : AppCompatActivity() {
                 if(textViewContent.contains("Invalid credentials")){
                     Toast.makeText(applicationContext, "Wrong Username or Password", Toast.LENGTH_SHORT).show()
 
-                }else {
+                } else if(textViewContent.contains("error")){
+                    Toast.makeText(applicationContext, "Server not responding", Toast.LENGTH_SHORT).show()
+                } else {
                     //    text_view_result.text = textViewSensors
                     //    if (textViewContent.contains("}"))
                     callForButtons()
@@ -151,11 +153,7 @@ class connectRaspberry : AppCompatActivity() {
     }
 
     fun callForButtons() {
-        if(textViewContent == "error"){
-            Toast.makeText(this, "Connection error", Toast.LENGTH_SHORT).show()
-            return
 
-        }
         val iDS =
             JSONObject(JSONObject(textViewContent).get("data").toString()).get("sensors").toString()
         val jsonObject = JSONObject(iDS)

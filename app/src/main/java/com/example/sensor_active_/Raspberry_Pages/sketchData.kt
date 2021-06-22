@@ -229,6 +229,12 @@ class sketchData : AppCompatActivity() {
                         if(textViewContent.contains("Invalid credentials")){
                             Toast.makeText(applicationContext, "Wrong Username or Password for IP: " + key, Toast.LENGTH_SHORT).show()
 
+                        }else if (textViewContent.contains("error")) {
+                            Toast.makeText(
+                                applicationContext,
+                                "Server not responding",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }else {
                             val editor = sharedPreferencesALL_IP.edit()
                             Log.i("added to IP_LIST: ", textViewContent)

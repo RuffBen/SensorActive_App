@@ -9,9 +9,7 @@ import android.widget.Toast
 import com.example.sensor_active_.Overview
 import com.example.sensor_active_.R
 import com.example.sensor_active_.Raspberry_Pages.classes.Assert
-import com.example.sensor_active_.Raspberry_Pages.classes.PreemtiveAuth
 import com.example.sensor_active_.Raspberry_Pages.classes.PreemtiveAuthChange
-import com.example.sensor_active_.Raspberry_Pages.classes.PreemtiveAuthSensors
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_e_s_p32_sensor.*
 import kotlinx.coroutines.GlobalScope
@@ -103,7 +101,13 @@ class ESP32Sensor : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                } else {
+                } else if (response.contains("error")) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Server not responding",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }else {
                     Toast.makeText(applicationContext, "success", Toast.LENGTH_SHORT).show()
                     val intent = Intent(applicationContext, Overview::class.java)
                     startActivity(intent)
@@ -128,6 +132,12 @@ class ESP32Sensor : AppCompatActivity() {
                 if(response.contains("Invalid credentials")){
                     Toast.makeText(applicationContext, "Wrong Username or Password", Toast.LENGTH_SHORT).show()
 
+                }else if (response.contains("error")) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Server not responding",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }else {
                     Toast.makeText(applicationContext, "success", Toast.LENGTH_SHORT).show()
                     val intent = Intent(applicationContext, Overview::class.java)
