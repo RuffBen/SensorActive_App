@@ -30,6 +30,7 @@ class ESP32Sensor : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_e_s_p32_sensor)
+        setTitle("Sensor configuration");
         sensorID = intent.getStringExtra("sensorID")
         url = intent.getStringExtra("IP")
 
@@ -42,8 +43,6 @@ class ESP32Sensor : AppCompatActivity() {
     }
 
     fun setValues() {
-
-
         val gSon = Gson().fromJson<Assert>(recivedString, Assert::class.java)
         sensorIDXML.setText(sensorID)
         sensorName = gSon.sensor_name.toString()
@@ -56,12 +55,10 @@ class ESP32Sensor : AppCompatActivity() {
         status = gSon.status.toString()
         sensorStatus.setText(status)
 
-
     }
 
     fun changes(view: View) {
         Log.i("ESP32", url)
-
         GlobalScope.launch {
 
             PreemtiveAuthChange(
@@ -74,22 +71,16 @@ class ESP32Sensor : AppCompatActivity() {
                 sensorIntervall.getText().toString()
             ).run()
             runOnUiThread {
-
                 Toast.makeText(applicationContext, "Success", Toast.LENGTH_SHORT).show()
                 val intent = Intent(applicationContext, Overview::class.java)
                 startActivity(intent)
             }
-
-
         }
-
-
-
     }
 
     fun removeSesnor(view: View) {
+        Log.i("remove Sensor", sensorID)
         GlobalScope.launch {
-
             PreemtiveAuthChange(
                 url,
                 "/remove_sensor",
@@ -100,13 +91,10 @@ class ESP32Sensor : AppCompatActivity() {
                 ""
             ).run()
             runOnUiThread {
-
                 Toast.makeText(applicationContext, "Success", Toast.LENGTH_SHORT).show()
                 val intent = Intent(applicationContext, Overview::class.java)
                 startActivity(intent)
             }
         }
-
     }
-
 }
