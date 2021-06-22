@@ -22,6 +22,10 @@ class AddSensor : AppCompatActivity() {
     val PORT = ":8888"
     var activeIPHTTPS = ""
     var response = ""
+    val SHARED_PREFS_PW_LIST = "PW_LIST"
+    private var username = ""
+    private var password = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_sensor)
@@ -35,35 +39,61 @@ class AddSensor : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("IP_Active", MODE_PRIVATE)
         activeIP = sharedPreferences.getString("IP_Active", "No IP Address found").toString()
         val delimiter = "///"
-        activeIPHTTPS = activeIP.split(delimiter)[0]
-        activeIPHTTPS = "https://" + activeIPHTTPS + PORT
-        Log.i("SPLITTED STRING", activeIPHTTPS)
+        activeIP = activeIP.split(delimiter)[0]
+        activeIPHTTPS = "https://" + activeIP + PORT
+        val sharedPreferencesPW = getSharedPreferences(SHARED_PREFS_PW_LIST, MODE_PRIVATE)
+        var userValue = sharedPreferencesPW.getString(activeIP, "no Userdata found")
+        if (userValue == "no Userdata found") {
+            Toast.makeText(this, "Please set Logindata on Gateways page!", Toast.LENGTH_SHORT)
+                .show()
+        } else {
+            username = JSONObject(userValue).get("username").toString()
+            password = JSONObject(userValue).get("password").toString()
+
+        }
 
 
     }
+
     fun searchSensorSerial(view: View) {
         GlobalScope.launch {
-
+            Log.i("Userdata", "un:" + username + ", " + password)
             response = PreemtiveAuthSensors(
                 activeIPHTTPS,
                 "/read_serial_address",
-                "demo",
-                "demo",
+                username,
+                password,
                 "",
                 "",
                 ""
             ).run()
-            runOnUiThread{
+            runOnUiThread {
                 searchLayout.removeAllViews()
-                //    text_view_result.text = textViewSensors
-                //    if (textViewContent.contains("}"))
-                if(JSONObject(response).get("success") == true)
-                    Toast.makeText(applicationContext, response, Toast.LENGTH_SHORT).show()
+                if (response.contains("Invalid credentials")) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Wrong Username or Password",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
-                //     callForButtons(response)
-                else{
-                    Toast.makeText(applicationContext, "no Sensor connected", Toast.LENGTH_SHORT).show()
+                } else if (response.contains("error")) {
+                    Toast.makeText(applicationContext, "Server not responding", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    //    text_view_result.text = textViewSensors
+                    //    if (textViewContent.contains("}"))
+                    if (JSONObject(response).get("success") == true)
+                        Toast.makeText(applicationContext, response, Toast.LENGTH_SHORT).show()
 
+                    //     callForButtons(response)
+                    else {
+                        Toast.makeText(
+                            applicationContext,
+                            "no Sensor connected",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    }
                 }
 
             }
@@ -78,39 +108,53 @@ class AddSensor : AppCompatActivity() {
             response = PreemtiveAuthSensors(
                 activeIPHTTPS,
                 "/search_bluetooth-devices",
-                "demo",
-                "demo",
+                username,
+                password,
                 "",
                 "",
                 ""
             ).run()
-            runOnUiThread{
-                progressBar.progress = 50
-                searchLayout.removeAllViews()
-                //    text_view_result.text = textViewSensors
-                //    if (textViewContent.contains("}"))
-                if(JSONObject(response).get("success") == true)
-                    callForButtons(response)
-                else{
-                    Toast.makeText(applicationContext, "no Sensor found", Toast.LENGTH_SHORT).show()
+            runOnUiThread {
+                if (response.contains("Invalid credentials")) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Wrong Username or Password",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    progressBar.progress = 0
+                } else if (response.contains("error")) {
+                    Toast.makeText(applicationContext, "Server not responding", Toast.LENGTH_SHORT)
+                        .show()
+                    progressBar.progress = 0
+                } else {
+                    progressBar.progress = 50
+                    searchLayout.removeAllViews()
+                    //    text_view_result.text = textViewSensors
+                    //    if (textViewContent.contains("}"))
+                    if (JSONObject(response).get("success") == true)
+                        callForButtons(response)
+                    else {
+                        Toast.makeText(applicationContext, "no Sensor found", Toast.LENGTH_SHORT)
+                            .show()
 
+                    }
                 }
             }
         }
     }
-    fun callForButtons(_response:String){
+
+    fun callForButtons(_response: String) {
         progressBar.progress = 75
         val responseData = JSONObject(_response).get("data").toString()
         val delimiter = ","
         var responseDataList = responseData.split(delimiter)
 
-        Log.i("respone AddSensor",responseDataList.size.toString())
-        for (item in responseDataList){
+        Log.i("respone AddSensor", responseDataList.size.toString())
+        for (item in responseDataList) {
             addButton(item)
         }
         progressBar.progress = 100
         //loop to get all sensor names
-
 
 
     }
@@ -133,18 +177,34 @@ class AddSensor : AppCompatActivity() {
         )
         //set Onclick Listener for buttons
         dynamicButton.setOnClickListener(View.OnClickListener { view ->
-            GlobalScope.launch{
-            val addResponse = PreemtiveAuthSensors(
-                activeIPHTTPS,
-                "/add_sensor",
-                "demo",
-                "demo",
-                "",
-                dynamicButton.text.toString(),
-                "neuerSensor").run()
-            runOnUiThread{
-                Toast.makeText(applicationContext, addResponse, Toast.LENGTH_SHORT).show()
-            }
+            GlobalScope.launch {
+                val addResponse = PreemtiveAuthSensors(
+                    activeIPHTTPS,
+                    "/add_sensor",
+                    username,
+                    password,
+                    "",
+                    dynamicButton.text.toString(),
+                    "neuerSensor"
+                ).run()
+                runOnUiThread {
+                    if (response.contains("Invalid credentials")) {
+                        Toast.makeText(
+                            applicationContext,
+                            "Wrong Username or Password",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    } else if (response.contains("error")) {
+                        Toast.makeText(
+                            applicationContext,
+                            "Server not responding",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(applicationContext, addResponse, Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
 
 
@@ -155,8 +215,6 @@ class AddSensor : AppCompatActivity() {
         // add Button to LinearLayout
 
     }
-
-
 
 
 }

@@ -92,7 +92,7 @@ class Overview : AppCompatActivity() {
         })
         var trueFalse: Boolean
         GlobalScope.launch {
-            trueFalse = checkAvailable().isReachable(key.toString(), 8888, 500)
+            trueFalse = checkAvailable().isReachable(key.toString(), 8888, 1000)
 
             if (trueFalse) {
                 dynamicButton.setTextColor(
