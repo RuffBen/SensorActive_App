@@ -12,19 +12,17 @@ import com.example.sensor_active_.Raspberry_Pages.classes.checkAvailable
 import com.example.sensor_active_.Raspberry_Pages.connectRaspberry
 
 import com.influx.dataClasses.InfluxBucket
+import com.influxdb.client.kotlin.InfluxDBClientKotlinFactory
 import kotlinx.android.synthetic.main.activity_add_gateway.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 class SetInterface : AppCompatActivity() {
 
-    var sessionData = com.influx.dataClasses.sessionData
 
-
-
-    var listOfInfluxBuckets = ArrayList<InfluxBucket>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_graph)
@@ -33,32 +31,58 @@ class SetInterface : AppCompatActivity() {
         val btn_BarChart = findViewById(R.id.buttonBarChart) as Button
 
 
-        var listOfBuckets =mutableListOf<String>()
+
 
         btn_BarChart.setOnClickListener {
-            for(bucket in listOfBuckets){
-                addBucketButtons(bucket)
-            }
+
         }
-
-
         GlobalScope.launch {
-            var listOfOrgs  =influxCommunication().getBuckets("SensorActive")
-
-            for(bucket in listOfOrgs){
+            var listOfBuckets = mutableListOf<String>()
+            var listOfOrgs=influxCommunication().getBuckets("SensorActive")
+            for (bucket in listOfOrgs) {
                 listOfBuckets.add(bucket.name)
             }
-
-
-            println("list listOfInfluxBuckets is loadet${listOfInfluxBuckets.size} ")
+            runOnUiThread {
+            for (bucket in listOfBuckets) {
+                addBucketButtons(bucket)
+            }
+            }
         }
 
     }
 
+
     fun addBucketButtons(orgName: String) {
 
+            //define the Parent of the Buttons
+            var linLay = findViewById(R.id.searchLayoutOrgs) as LinearLayout
+
+            //adds new layout for button
+            var newlinLay= LinearLayout(this)
+            // defines button
+            val dynamicButton = Button(this)
+            linLay.addView(newlinLay)
+            // setting layout_width and layout_height using layout parameters
+            dynamicButton.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            dynamicButton.setOnClickListener(View.OnClickListener { view ->
+
+                getMeasurementList(dynamicButton.text.toString())
+
+            })
+
+            newlinLay.addView(dynamicButton)
+            dynamicButton.text = orgName
+            // add Button to LinearLayout
+
+    }
+
+
+    fun addMesurmentButton(mesurment: String, bucket:String){
         //define the Parent of the Buttons
-        var linLay = findViewById(R.id.searchLayoutOrgs) as LinearLayout
+        var linLay = findViewById(R.id.searchLayoutBuckets) as LinearLayout
 
         //adds new layout for button
         var newlinLay= LinearLayout(this)
@@ -71,25 +95,69 @@ class SetInterface : AppCompatActivity() {
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         dynamicButton.setOnClickListener(View.OnClickListener { view ->
+
             GlobalScope.launch {
-                addMesurment(dynamicButton.text.toString())
+                getDivicesList(dynamicButton.text.toString(), bucket)
+
             }
         })
 
         newlinLay.addView(dynamicButton)
-        dynamicButton.text = orgName
+        dynamicButton.text = mesurment
         // add Button to LinearLayout
 
     }
 
-    private fun addMesurment(bucketName: String){
-        listOfInfluxBuckets = influxCommunication().getBuckets(bucketName)
-        var linLay = findViewById(R.id.searchLayoutBuckets) as LinearLayout
-        var newlinLay: LinearLayout = LinearLayout(this)
+    fun addDiviceButton(divice: String){
+        //define the Parent of the Buttons
+        var linLay = findViewById(R.id.searchLayoutDivices) as LinearLayout
 
-        influxCommunication().getMesurment(bucketName)
+        //adds new layout for button
+        var newlinLay= LinearLayout(this)
+        // defines button
+        val dynamicButton = Button(this)
+        linLay.addView(newlinLay)
+        // setting layout_width and layout_height using layout parameters
+        dynamicButton.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        dynamicButton.setOnClickListener(View.OnClickListener { view ->
+
+            GlobalScope.launch {
+
+            }
+        })
+
+        newlinLay.addView(dynamicButton)
+        dynamicButton.text = divice
+        // add Button to LinearLayout
+
+    }
 
 
+    fun getMeasurementList(bucket: String){
+        var measurementList = mutableListOf<String>()
+        GlobalScope.launch {
+            measurementList = influxCommunication().getMesurment(bucket)
+            runOnUiThread {
+                for (measurement in measurementList) {
+                    addMesurmentButton(measurement,bucket)
+                }
+            }
+        }
+    }
+
+    fun getDivicesList(divice: String, bucket: String){
+        var measurementList = mutableListOf<String>()
+        GlobalScope.launch {
+            measurementList = influxCommunication().getDivices(divice, bucket)
+            runOnUiThread {
+                for (measurement in measurementList) {
+                    addDiviceButton(measurement)
+                }
+            }
+        }
     }
 
 

@@ -10,9 +10,8 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-//To Main DataBasePage
-//import com.example.sensor_active_.DatabasePages.MainDatabase
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+
+
 import com.example.sensor_active_.Raspberry_Pages.AddGateway
 import com.example.sensor_active_.Raspberry_Pages.classes.checkAvailable
 import com.example.sensor_active_.Raspberry_Pages.connectRaspberry

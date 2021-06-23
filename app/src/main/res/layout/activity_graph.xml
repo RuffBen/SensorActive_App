@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginTop="15dp"
-        android:text="Mesurments"
+        android:text="Gateways"
         android:visibility="visible">
     </TextView>
     <ScrollView
@@ -60,6 +60,35 @@
 
 
     </ScrollView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="15dp"
+        android:text="Divices"
+        android:visibility="visible">
+    </TextView>
+    <ScrollView
+        android:id="@+id/scrollViewDivices"
+        android:layout_width="412dp"
+        android:layout_height="161dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/light_grey">
+
+
+
+        <LinearLayout
+            android:id="@+id/searchLayoutDivices"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
 
 
     <Button
