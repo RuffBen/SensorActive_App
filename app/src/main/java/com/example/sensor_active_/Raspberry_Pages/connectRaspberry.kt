@@ -40,7 +40,7 @@ class connectRaspberry : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect_raspberry)
-        setTitle("Gateway configuration");
+        setTitle("Gateway configuration")
         loadData()
         //getSensorStatus()
         displayIpAddress.text = recievedHostName + "\n" + recievedIPAddressHTTPS

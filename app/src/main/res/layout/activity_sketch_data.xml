@@ -16,4 +16,11 @@
         android:layout_height="wrap_content"
         android:onClick="statusAll"
         android:text="refresh all" />
+
+    <Button
+        android:id="@+id/toLora"
+        android:onClick="toLorawan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="toLora" />
 </RelativeLayout>
