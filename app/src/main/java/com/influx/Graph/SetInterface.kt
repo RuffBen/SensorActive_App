@@ -34,7 +34,8 @@ class SetInterface : AppCompatActivity() {
 
 
         btn_BarChart.setOnClickListener {
-
+            val intent = Intent(this, LineChart::class.java)
+            startActivity(intent)
         }
         GlobalScope.launch {
             var listOfBuckets = mutableListOf<String>()
@@ -108,7 +109,7 @@ class SetInterface : AppCompatActivity() {
 
     }
 
-    fun addDiviceButton(divice: String){
+    fun addDiviceButton(measurement: String, bucket: String,divice: String){
         //define the Parent of the Buttons
         var linLay = findViewById(R.id.searchLayoutDivices) as LinearLayout
 
@@ -125,12 +126,40 @@ class SetInterface : AppCompatActivity() {
         dynamicButton.setOnClickListener(View.OnClickListener { view ->
 
             GlobalScope.launch {
-
+                getMeasurementList(measurement,bucket,divice)
             }
         })
 
         newlinLay.addView(dynamicButton)
-        dynamicButton.text = divice
+        dynamicButton.text = measurement
+        // add Button to LinearLayout
+
+    }
+
+
+    fun addMeasurementButton(value: String, measurement: String, bucket: String,divice: String){
+        //define the Parent of the Buttons
+        var linLay = findViewById(R.id.searchLayoutDivices) as LinearLayout
+
+        //adds new layout for button
+        var newlinLay= LinearLayout(this)
+        // defines button
+        val dynamicButton = Button(this)
+        linLay.addView(newlinLay)
+        // setting layout_width and layout_height using layout parameters
+        dynamicButton.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        dynamicButton.setOnClickListener(View.OnClickListener { view ->
+
+            GlobalScope.launch {
+                getMeasurementList(measurement,bucket,divice)
+            }
+        })
+
+        newlinLay.addView(dynamicButton)
+        dynamicButton.text = value
         // add Button to LinearLayout
 
     }
@@ -154,7 +183,20 @@ class SetInterface : AppCompatActivity() {
             measurementList = influxCommunication().getDivices(divice, bucket)
             runOnUiThread {
                 for (measurement in measurementList) {
-                    addDiviceButton(measurement)
+                    addDiviceButton(measurement, bucket, divice)
+                }
+            }
+        }
+    }
+
+
+    fun getMeasurementList(measurement: String, bucket: String, divice :String){
+        var measurementList = mutableListOf<String>()
+        GlobalScope.launch {
+            measurementList = influxCommunication().getMeasurement(divice, bucket, measurement)
+            runOnUiThread {
+                for (value in measurementList) {
+                    addMeasurementButton(value, measurement, bucket, divice)
                 }
             }
         }

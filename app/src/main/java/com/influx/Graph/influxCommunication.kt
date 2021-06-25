@@ -185,7 +185,7 @@ public class influxCommunication {
         runBlocking {
             val fluxQuery = ("from(bucket: \"${bucketName}\")\n" +
                     " |> range(start: -30d)" +
-                    "  |> filter(fn: (r) => r[\"_measurement\"] == \"${diviceName}\")\n"
+                    " |> filter(fn: (r) => r[\"_measurement\"] == \"${diviceName}\")\n"
                     )
 
             val influxDBClient = InfluxDBClientKotlinFactory.create(
@@ -230,6 +230,61 @@ public class influxCommunication {
             influxDBClient.close()
         };return gateways
     }
+
+    fun getMeasurement(diviceName: String,bucketName: String, measurment:String): ArrayList<String>{
+
+            var meaurments = ArrayList<String>()
+            runBlocking {
+                val fluxQuery = ("from(bucket: \"${bucketName}\")\n" +
+                        " |> range(start: -30d)" +
+                        "  |> filter(fn: (r) => r[\"_measurement\"] == \"${diviceName}\")\n"+
+                        "|> filter(fn: (r) => r[\"beacon_name\"] == \"${measurment}\")\n"
+                        )
+
+                val influxDBClient = InfluxDBClientKotlinFactory.create(
+                    "https://sensoractive.ddnss.de:8086",
+                    "qV_WvU2eJbUAvYrTRacX0VsV2SBncwq3kx4FH21z0Vq9XLYfikdqcdG7hialL4_ktpmiHJ2ui945Fq5SyotECQ==".toCharArray(),
+                    "SensorActive"
+                )
+
+
+                val result = influxDBClient.getQueryKotlinApi().queryRaw(fluxQuery)
+
+                var foundMeasurement =false
+                var measurementCommas = -1
+
+                for (bucketLine in result) {
+
+                    if (foundMeasurement) {
+                        var words = bucketLine.split(',')
+                        println("The beacon_name is ${words.size}")
+
+                        if (words.size < measurementCommas ) {
+                            println("Finish")
+                            break
+                        }
+                        if(!meaurments.contains(words[measurementCommas].removePrefix(","))) {
+                            meaurments.add(words[measurementCommas].removePrefix(","))
+                            println(words[measurementCommas].removePrefix(","))
+                        }
+                    }
+
+                    if (!foundMeasurement) {
+                        if (bucketLine.contains("measurement")) {
+                            if (countCommas(bucketLine, "measurement") > -1) {
+                                measurementCommas = countCommas(bucketLine, "measurement")+2
+                                foundMeasurement = true
+                                println("measurement Found")
+                            }
+                        }else {
+                            println("measurement not Found")
+                        }
+                    }
+                }
+                influxDBClient.close()
+            };return meaurments
+    }
+
 }
 
 
