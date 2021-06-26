@@ -1,23 +1,15 @@
 package com.influx.Graph
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.sensor_active_.R
-import com.example.sensor_active_.Raspberry_Pages.classes.checkAvailable
-import com.example.sensor_active_.Raspberry_Pages.connectRaspberry
-
-import com.influx.dataClasses.InfluxBucket
-import com.influxdb.client.kotlin.InfluxDBClientKotlinFactory
+import com.influx.login_functions.Login
 import kotlinx.android.synthetic.main.activity_add_gateway.*
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 
 class SetInterface : AppCompatActivity() {
@@ -30,13 +22,11 @@ class SetInterface : AppCompatActivity() {
         // get reference to button
         val btn_BarChart = findViewById(R.id.buttonBarChart) as Button
 
-
-
-
         btn_BarChart.setOnClickListener {
-            val intent = Intent(this, LineChart::class.java)
+            val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
+
         GlobalScope.launch {
             var listOfBuckets = mutableListOf<String>()
             var listOfOrgs=influxCommunication().getBuckets("SensorActive")
@@ -125,9 +115,14 @@ class SetInterface : AppCompatActivity() {
         )
         dynamicButton.setOnClickListener(View.OnClickListener { view ->
 
-            GlobalScope.launch {
-                getMeasurementList(measurement,bucket,divice)
-            }
+            val bundle = Bundle()
+            bundle.putString("measurement",measurement)
+            bundle.putString("bucket",bucket)
+            bundle.putString("divice",divice)
+            val intent = Intent(this, LineChart::class.java)
+
+            intent.putExtras(bundle)
+            startActivity(intent)
         })
 
         newlinLay.addView(dynamicButton)
@@ -136,33 +131,6 @@ class SetInterface : AppCompatActivity() {
 
     }
 
-
-    fun addMeasurementButton(value: String, measurement: String, bucket: String,divice: String){
-        //define the Parent of the Buttons
-        var linLay = findViewById(R.id.searchLayoutDivices) as LinearLayout
-
-        //adds new layout for button
-        var newlinLay= LinearLayout(this)
-        // defines button
-        val dynamicButton = Button(this)
-        linLay.addView(newlinLay)
-        // setting layout_width and layout_height using layout parameters
-        dynamicButton.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        dynamicButton.setOnClickListener(View.OnClickListener { view ->
-
-            GlobalScope.launch {
-                getMeasurementList(measurement,bucket,divice)
-            }
-        })
-
-        newlinLay.addView(dynamicButton)
-        dynamicButton.text = value
-        // add Button to LinearLayout
-
-    }
 
 
     fun getMeasurementList(bucket: String){
@@ -184,19 +152,6 @@ class SetInterface : AppCompatActivity() {
             runOnUiThread {
                 for (measurement in measurementList) {
                     addDiviceButton(measurement, bucket, divice)
-                }
-            }
-        }
-    }
-
-
-    fun getMeasurementList(measurement: String, bucket: String, divice :String){
-        var measurementList = mutableListOf<String>()
-        GlobalScope.launch {
-            measurementList = influxCommunication().getMeasurement(divice, bucket, measurement)
-            runOnUiThread {
-                for (value in measurementList) {
-                    addMeasurementButton(value, measurement, bucket, divice)
                 }
             }
         }

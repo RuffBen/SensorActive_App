@@ -16,7 +16,7 @@
     <color name="grey"> #808080</color>
     <color name="light_grey">#bebebe</color>
     <color name="darkred">#8E1600</color>
-    <color name="colorLight">#8E1600</color>
-    <color name="colorDark">#8E1600</color>
+    <color name="colorLight">#1A3661</color>
+    <color name="colorDark">#1A3661</color>
 
 </resources>

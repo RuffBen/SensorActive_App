@@ -1,18 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.influx.Graph.LineChart">
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="10dp"
+    tools:context="com.influx.Graph.SetInterface">
+
+
+    <TextView
+        android:id="@+id/titleDiviceName"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textStyle="bold"
+        android:textSize="25dp"
+
+        android:text="Divice"
+        android:visibility="visible">
+    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Measurments"
+        android:visibility="visible">
+    </TextView>
+
+    <ScrollView
+        android:id="@+id/scrollViewSMesurments"
+        android:layout_width="412dp"
+        android:layout_height="161dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        android:background="@color/light_grey"
+        >
+
+
+        <LinearLayout
+            android:id="@+id/searchLayoutOrgs"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:fitsSystemWindows="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintLeft_toRightOf="parent"
+        android:layout_marginTop="8dp"
+
         android:background="@drawable/gradient_bg"
         android:orientation="vertical">
 
@@ -26,5 +69,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Values Raw"
+        android:visibility="visible">
+    </TextView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:id="@+id/scrollViewValues"
+        android:layout_width="412dp"
+        android:layout_height="161dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/light_grey"
+        android:visibility="visible">
+
+
+        <LinearLayout
+            android:id="@+id/searchLayoutValues"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"></LinearLayout>
+
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back">
+    </Button>
+
+</LinearLayout>
