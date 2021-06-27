@@ -42,7 +42,9 @@ class connectRaspberry : AppCompatActivity() {
         setContentView(R.layout.activity_connect_raspberry)
         setTitle("Gateway configuration")
         loadData()
+
         //getSensorStatus()
+
         displayIpAddress.text = recievedHostName + "\n" + recievedIPAddressHTTPS
 
         swipeRefresh()

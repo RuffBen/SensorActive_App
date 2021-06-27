@@ -7,21 +7,33 @@
     android:gravity="center"
     android:padding="10dp"
     tools:context="com.influx.Graph.SetInterface">
+
+
+    <TextView
+        android:id="@+id/titleDiviceName"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textStyle="bold"
+        android:textSize="25dp"
+
+        android:text="Divice"
+        android:visibility="visible">
+    </TextView>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text="Buckets"
+        android:text="Measurments"
         android:visibility="visible">
     </TextView>
 
     <ScrollView
-        android:id="@+id/scrollViewOrgs"
+        android:id="@+id/scrollViewSMesurments"
         android:layout_width="412dp"
         android:layout_height="161dp"
         android:layout_marginTop="8dp"
         android:visibility="visible"
         android:background="@color/light_grey"
-       >
+        >
 
 
         <LinearLayout
@@ -33,70 +45,60 @@
 
 
     </ScrollView>
+
+
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:fitsSystemWindows="true"
+        android:layout_marginTop="8dp"
+
+        android:background="@drawable/gradient_bg"
+        android:orientation="vertical">
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:padding="9dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_marginTop="15dp"
-        android:text="Gateways"
+        android:text="Values Raw"
         android:visibility="visible">
     </TextView>
+
     <ScrollView
-        android:id="@+id/scrollViewBuckets"
+        android:id="@+id/scrollViewValues"
         android:layout_width="412dp"
         android:layout_height="161dp"
         android:layout_marginTop="8dp"
-        android:background="@color/light_grey">
-
-
-
-        <LinearLayout
-            android:id="@+id/searchLayoutBuckets"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical">
-
-
-        </LinearLayout>
-
-
-    </ScrollView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="15dp"
-        android:text="Divices"
+        android:background="@color/light_grey"
         android:visibility="visible">
-    </TextView>
-    <ScrollView
-        android:id="@+id/scrollViewDivices"
-        android:layout_width="412dp"
-        android:layout_height="161dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/light_grey">
-
 
 
         <LinearLayout
-            android:id="@+id/searchLayoutDivices"
+            android:id="@+id/searchLayoutValues"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical">
-
-
-        </LinearLayout>
+            android:orientation="vertical"></LinearLayout>
 
 
     </ScrollView>
-
-
 
     <Button
-        android:id="@+id/buttonBarChart"
+        android:id="@+id/buttonBack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Back">
     </Button>
-
 
 </LinearLayout>

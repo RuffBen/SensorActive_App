@@ -17,12 +17,14 @@
     <string name="search_for_sensors">Add Sensor</string>
     <string name="_8086">_8086</string>
     <string name="andere">andere</string>
-    <string name="name">name</string>
+    <string name="name">Name</string>
     <string name="passwort">passwort</string>
-    <string name="zeitspanne">zeitspanne</string>
-    <string name="bucket">Bucket</string>
+    <string name="zeitspanne">Value</string>
+    <string name="bucket">Buckets</string>
     <string name="radar_chart">radar_chart</string>
     <string name="pie_chart">pie_chart</string>
-    <string name="bar_chart">bar_chart</string>
+    <string name="bar_chart">Lade Daten</string>
     <string name="search_sensor">search Sensor</string>
+    <string name="organisations">Organisations</string>
+    <string name="password">Password</string>
 </resources>
