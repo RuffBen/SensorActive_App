@@ -1,8 +1,14 @@
 package com.example.sensor_active_.Raspberry_Pages
 
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sensor_active_.R
 import kotlinx.android.synthetic.main.activity_lora_connect2.*
@@ -16,6 +22,7 @@ import okhttp3.Response
 var client = OkHttpClient()
 
 class loraConnect : AppCompatActivity() {
+    var viewID = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +62,54 @@ class loraConnect : AppCompatActivity() {
         }
 
 
+    }
+    fun CreateNewTextView(
+        _IPAddress: String,
+        _textTime: String,
+        _textSensors: String,
+        _textSensorsCheckout: String
+    ) {
+        var textSensors = _textSensors
+        var textTime = _textTime
+        var textSensorsCheckout = _textSensorsCheckout
+        var IPAddress = _IPAddress
+        val layout = findViewById<RelativeLayout>(R.id.root)
+
+        // Create TextView programmatically.
+        val textView = TextView(this)
+        textView.setId(viewID)
+
+        // setting height and width
+        val layoutParam: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        if (viewID > 1) {
+            layoutParam.addRule(RelativeLayout.BELOW, (viewID - 1));
+        } else {
+            layoutParam.addRule(
+                RelativeLayout.BELOW,
+                (findViewById<Button>(R.id.statusAll).getId())
+            );
+
+        }
+
+        // setting text
+        textView.setText(
+            Html.fromHtml(
+                "$viewID.  Gateway_IP: $IPAddress, <br>$textTime, <br> $textSensorsCheckout",
+                Html.FROM_HTML_MODE_LEGACY
+            )
+        )
+
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+
+        layout?.addView(textView, layoutParam)
+        viewID++
+
+
+        //  newlinLay.addView(dynamicButton)
+        // dynamicButton.text = sensorID + " : " + sensorName
+        // add Button to LinearLayout
     }
 
 
