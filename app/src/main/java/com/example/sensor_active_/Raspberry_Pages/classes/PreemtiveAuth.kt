@@ -49,6 +49,7 @@ open class PreemtiveAuth(_url: String, _extension: String, _username: String, _p
                 .build()
 
 
+
         //Wenn man ein vertrauenswürdiges Certifikat hat:
         /*
         client = OkHttpClient.Builder()

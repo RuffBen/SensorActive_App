@@ -1,5 +1,6 @@
 package com.example.sensor_active_.Raspberry_Pages
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.text.Html.FROM_HTML_MODE_LEGACY
@@ -263,6 +264,12 @@ class sketchData : AppCompatActivity() {
             return false
         }
         return trueFalse
+
+    }
+
+    fun toLorawan(view: View) {
+        val intent = Intent(this, loraConnect::class.java)
+        startActivity(intent)
 
     }
 
