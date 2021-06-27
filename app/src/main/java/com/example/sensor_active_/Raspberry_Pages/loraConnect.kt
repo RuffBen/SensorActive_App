@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import org.json.JSONObject
 
 
 var client = OkHttpClient()
@@ -38,8 +39,8 @@ class loraConnect : AppCompatActivity() {
                 .build()
 
             var request: Request = Request.Builder()
-              //  .url("https://eu1.cloud.thethings.network/api/v3/applications/esp32container/devices?field_mask=name")
-                .url("https://eu1.cloud.thethings.network/api/v3/applications")
+                .url("https://eu1.cloud.thethings.network/api/v3/applications/esp32container/devices?field_mask=name")
+              //  .url("https://eu1.cloud.thethings.network/api/v3/applications")
 
                 .header(
                      //"Authorization","Bearer NNSXS.OIWT3CO2VEZWMNYAYLILAGA3HSVXDYGARC4ASXQ.7RII3ERWUGD6G2EZJ5K6CVY2E6RG4K4RTJPE65VP4WUUKO77YXBQ"
@@ -55,24 +56,30 @@ class loraConnect : AppCompatActivity() {
             var response: Response = client.newCall(request).execute()
             runOnUiThread {
                 var textResponse = response.body!!.string()
+                var delimiter = "["
+                textResponse = textResponse.split(delimiter)[1]
+                delimiter = "]"
+                textResponse = textResponse.split(delimiter)[0]
+                textResponse = textResponse.removePrefix("{")
+                delimiter = "},{"
+                var textResponseList =textResponse.split(delimiter)
+                for (splits in textResponseList){
+                    Log.i("response", splits.toString())
+                    CreateNewTextView(splits)
+                }
 
-                Log.i("response", textResponse.toString())
-                textLora.text = textResponse.toString()
+
+
             }
         }
 
 
     }
     fun CreateNewTextView(
-        _IPAddress: String,
-        _textTime: String,
-        _textSensors: String,
-        _textSensorsCheckout: String
+        _text: String,
+
     ) {
-        var textSensors = _textSensors
-        var textTime = _textTime
-        var textSensorsCheckout = _textSensorsCheckout
-        var IPAddress = _IPAddress
+        var text = _text
         val layout = findViewById<RelativeLayout>(R.id.root)
 
         // Create TextView programmatically.
@@ -88,7 +95,7 @@ class loraConnect : AppCompatActivity() {
         } else {
             layoutParam.addRule(
                 RelativeLayout.BELOW,
-                (findViewById<Button>(R.id.statusAll).getId())
+                (findViewById<Button>(R.id.getLoraData).getId())
             );
 
         }
@@ -96,7 +103,7 @@ class loraConnect : AppCompatActivity() {
         // setting text
         textView.setText(
             Html.fromHtml(
-                "$viewID.  Gateway_IP: $IPAddress, <br>$textTime, <br> $textSensorsCheckout",
+                "$viewID.  Sensor: $text <br>",
                 Html.FROM_HTML_MODE_LEGACY
             )
         )

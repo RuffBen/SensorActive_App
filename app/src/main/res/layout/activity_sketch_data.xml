@@ -17,10 +17,16 @@
         android:onClick="statusAll"
         android:text="refresh all" />
 
-    <Button
-        android:id="@+id/toLora"
-        android:onClick="toLorawan"
+    <RelativeLayout
+        android:id="@+id/InnerRelativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="toLora" />
+        android:layout_alignParentBottom="true" >
+    <Button
+        android:id="@+id/toLora"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="toLorawan"
+        android:text="to Lora gateways" />
+    </RelativeLayout>
 </RelativeLayout>
