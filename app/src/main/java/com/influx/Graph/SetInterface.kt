@@ -29,7 +29,7 @@ class SetInterface : AppCompatActivity() {
 
         GlobalScope.launch {
             var listOfBuckets = mutableListOf<String>()
-            var listOfOrgs=influxCommunication().getBuckets("SensorActive")
+            var listOfOrgs=influxCommunication().getBuckets()
             for (bucket in listOfOrgs) {
                 listOfBuckets.add(bucket.name)
             }

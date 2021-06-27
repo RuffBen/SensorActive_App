@@ -12,7 +12,7 @@ import kotlin.collections.ArrayList
 public class influxCommunication {
 
 
-    fun getBuckets(org: String): ArrayList<InfluxBucket> {
+    fun getBuckets(): ArrayList<InfluxBucket> {
 
         var buckets = ArrayList<InfluxBucket>()
         //Log.i("LoginData",sessionData.websiteLinkInput+"+"+sessionData.keyInput)
@@ -343,6 +343,19 @@ public class influxCommunication {
             }
             influxDBClient.close()
         };return meaurments
+    }
+
+    fun getBattery(){
+
+        val bucketlist=getBuckets()
+
+        for(bucket in bucketlist) {
+            val fluxQuery = ("from(bucket: \"${bucket}\")\n" +
+                    "|> range(start: -30d)" +
+                    "|> filter(fn: (r) => r[\"measurement\"] == \"bat\")"
+                    )
+
+        }
     }
 
 }

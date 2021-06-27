@@ -172,7 +172,7 @@ class LineChart : AppCompatActivity() {
 //Part9
         lineChart.description.text = beconName
         lineChart.setNoDataText("No forex yet!")
-
+        lineChart.animateY(600)
 //Part10
         //lineChart.animateX(1800, Easing.EaseInExpo)
 
