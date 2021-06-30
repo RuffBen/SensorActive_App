@@ -323,10 +323,10 @@ public class influxCommunication {
                         println("Finish")
                         break
                     }
-                    if(!meaurments.contains(words[measurementCommas].removePrefix(","))) {
-                        meaurments.add(words[measurementCommas].removePrefix(","))
-                        println(words[measurementCommas].removePrefix(","))
-                    }
+
+                    meaurments.add(words[measurementCommas].removePrefix(","))
+                    println(words[measurementCommas].removePrefix(","))
+
                 }
 
                 if (!foundMeasurement) {

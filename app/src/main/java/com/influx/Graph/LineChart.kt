@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sensor_active_.R
 import com.github.mikephil.charting.data.Entry
@@ -14,9 +15,11 @@ import com.github.mikephil.charting.data.LineDataSet
 import kotlinx.android.synthetic.main.activity_line_chart.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 
 
 class LineChart : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_line_chart)
@@ -40,8 +43,10 @@ class LineChart : AppCompatActivity() {
             GlobalScope.launch {
                 getSensorList(_measurement, _bucket, _divice)
             }
-
+            var titleDivice = findViewById(R.id.titleDiviceName) as TextView
+            titleDivice.text= _measurement
         }
+
 
     }
 
@@ -122,11 +127,14 @@ class LineChart : AppCompatActivity() {
             //fun getValues(diviceName: String,bucketName: String, measurment:String, value:String): ArrayList<String>{
             measurementList = influxCommunication().getValues(divice, bucket, measurement, value)
             runOnUiThread {
+                var linLay = findViewById(R.id.searchLayoutValues) as LinearLayout
+                linLay .removeAllViews()
                 for (data in measurementList) {
                     addValueList(data)
                     graphParameter.add(data)
                     println(data)
                 }
+
                 makeGraph(measurement, divice, graphParameter)
             }
         }
